@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160843935012",
+    "project_id": "roma-bakery",
+    "storage_bucket": "roma-bakery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160843935012:android:4c3367659d0509cac117b1",
+        "android_client_info": {
+          "package_name": "com.example.romabakery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160843935012-uve3rm41brvqjai1un71k0nnhf2p78gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3fWVMP2vlxKU2muwGrt3D9yY36EkwSw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160843935012-uve3rm41brvqjai1un71k0nnhf2p78gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
