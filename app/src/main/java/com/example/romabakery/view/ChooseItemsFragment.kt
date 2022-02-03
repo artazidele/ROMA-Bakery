@@ -23,7 +23,7 @@ class ChooseItemsFragment : Fragment() {
         binding.viewModel = chooseViewModel
         chooseViewModel.getConfItems()
         binding.photosGrid.adapter = ChooseItemsAdapter()
-//        binding.photosGrid.visibility = View.VISIBLE
+        binding.photosGrid.visibility = View.VISIBLE
 //        binding.statusRetry.setOnClickListener {
 //            showCountWindow()
 //        }

@@ -24,15 +24,18 @@ class ChooseItemsViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
+                var count = 0
                 Log.d(TAG, "TRY TRY TRY TRY TRY")
                 var itemList: ArrayList<ConfectioneryItem> = ArrayList()
                 ConfectioneryItemFirebase().getAllItems().addOnSuccessListener { documents ->
                     for (document in documents) {
+                        count = count + 1
+                        Log.d(TAG, "TRY TRY TRY TRY TRY" + count.toString())
                         val oneItem = document.toObject<ConfectioneryItem>()
                         itemList.add(oneItem)
                     }
                 }
-////                delay(10000)
+                delay(5000)
 //                for (document in 0..count(querySnapshot)) {
 //                    val oneItem = document.toObject<ConfectioneryItem>()
 //                    itemList.add(oneItem)
