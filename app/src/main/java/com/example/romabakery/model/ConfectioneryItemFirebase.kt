@@ -4,16 +4,25 @@ import android.content.ClipData
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.romabakery.viewmodel.ChooseItemsViewModel
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 
 class ConfectioneryItemFirebase {
     val db = FirebaseFirestore.getInstance()
+
+    suspend fun itemQuery(): Task<QuerySnapshot> {
+        return db.collection("ConfectioneryItem")
+//            .whereEqualTo("notInProduction", false)
+            .get()
+    }
 
     //    suspend fun getConfectioneryItems() {
 //        var itemList: ArrayList<ConfectioneryItem> = ArrayList()

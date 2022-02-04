@@ -20,7 +20,7 @@ import java.nio.file.Files.size
 enum class NetworkStatus { LOADING, ERROR, DONE }
 
 class ChooseItemsViewModel : ViewModel() {
-    val db = FirebaseFirestore.getInstance()
+//    val db = FirebaseFirestore.getInstance()
     private val _status = MutableLiveData<NetworkStatus>()
     val status: LiveData<NetworkStatus> = _status
     private val _items = MutableLiveData<List<ConfectioneryItem>>()
@@ -31,9 +31,10 @@ class ChooseItemsViewModel : ViewModel() {
             try {
 
                 var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-                db.collection("ConfectioneryItem")
-//            .whereEqualTo("notInProduction", false)
-                    .get()
+//                db.collection("ConfectioneryItem")
+////            .whereEqualTo("notInProduction", false)
+//                    .get()
+                        ConfectioneryItemFirebase().itemQuery()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
                             val message = document.toObject<ConfectioneryItem>()
