@@ -46,8 +46,8 @@ class ChooseItemsAdapter :
     }
 
     override fun onBindViewHolder(holder: ChooseItemsViewHolder, position: Int) {
-        val catPhoto = getItem(position)
-        holder.bind(catPhoto)
+        val item = getItem(position)
+        holder.bind(item)
         holder.itemView.setOnClickListener {
 //            openImageWindow(catPhoto, holder.itemView.context)
         }

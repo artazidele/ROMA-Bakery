@@ -23,7 +23,6 @@
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:text="TEXT"
             app:itemTitle="@{confectioneryItem.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -27,8 +27,10 @@ class ChooseItemsViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
-                _items.value = ConfectioneryItemFirebase().getItemsAll()//itemList//getConfectioneryItems()
-                _status.value = NetworkStatus.DONE
+                ConfectioneryItemFirebase().getItemsAll()
+//                delay(5000)
+//                _items.value = ConfectioneryItemFirebase().getItemsAll()//itemList//getConfectioneryItems()
+//                _status.value = NetworkStatus.DONE
 
 
 //                var count = 0
@@ -59,6 +61,13 @@ class ChooseItemsViewModel : ViewModel() {
         }
     }
     public fun updateItems(confectioneryItems: List<ConfectioneryItem>) {
-        _items.value = confectioneryItems
+//        viewModelScope.launch {
+            _items.value = confectioneryItems
+            _status.value = NetworkStatus.DONE
+            Log.d(TAG, "TRY TRY TRY TRY TRY")
+//        }
+    }
+    public fun notUpdateItems() {
+        _items.value = listOf()
     }
 }

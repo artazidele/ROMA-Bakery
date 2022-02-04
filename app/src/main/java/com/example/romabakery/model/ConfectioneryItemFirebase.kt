@@ -95,21 +95,41 @@ class ConfectioneryItemFirebase {
         .get()
 //        .result
 
-    suspend fun getItemsAll(): List<ConfectioneryItem>? {
+//    suspend fun getItemsAll(): List<ConfectioneryItem>? {
+//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+//        db.collection("ConfectioneryItem")
+////        .whereEqualTo("notInProduction", false)
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    Log.d(TAG, "TRY TRY TRY TRY TRY")
+//                    val oneItem = document.toObject<ConfectioneryItem>()
+//                    itemList.add(oneItem)
+//                }
+//            }
+//        delay(5000)
+//        return itemList
+//    }
+
+    suspend fun getItemsAll() {
         var itemList: ArrayList<ConfectioneryItem> = ArrayList()
         db.collection("ConfectioneryItem")
-//        .whereEqualTo("notInProduction", false)
+//            .whereEqualTo("notInProduction", false)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    Log.d(TAG, "TRY TRY TRY TRY TRY")
-                    val oneItem = document.toObject<ConfectioneryItem>()
-                    itemList.add(oneItem)
+                    val message = document.toObject<ConfectioneryItem>()
+                    itemList.add(message)
                 }
+                Log.d(TAG, documents.count().toString())
+                val itemListToReturn: List<ConfectioneryItem> = itemList
+                ChooseItemsViewModel().updateItems(itemListToReturn)
             }
-        delay(5000)
-        return itemList
+            .addOnFailureListener {
+                ChooseItemsViewModel().notUpdateItems()
+            }
     }
+
 
 //    fun getAllIt(): List<ConfectioneryItem>? {
 //        var itemList: ArrayList<ConfectioneryItem> = ArrayList()

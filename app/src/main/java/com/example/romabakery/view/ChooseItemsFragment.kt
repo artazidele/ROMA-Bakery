@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.example.romabakery.databinding.FragmentChooseItemsBinding
 import com.example.romabakery.view.ChooseItemsAdapter
 import com.example.romabakery.viewmodel.ChooseItemsViewModel
+import kotlinx.coroutines.delay
 
 
 class ChooseItemsFragment : Fragment() {
@@ -22,6 +23,7 @@ class ChooseItemsFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = chooseViewModel
         chooseViewModel.getConfItems()
+
         binding.photosGrid.adapter = ChooseItemsAdapter()
         binding.photosGrid.visibility = View.VISIBLE
 //        binding.statusRetry.setOnClickListener {
