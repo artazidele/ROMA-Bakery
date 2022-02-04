@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.model.ConfectioneryItemFirebase
 import com.google.android.gms.tasks.Tasks.await
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -19,6 +20,7 @@ import java.nio.file.Files.size
 enum class NetworkStatus { LOADING, ERROR, DONE }
 
 class ChooseItemsViewModel : ViewModel() {
+    val db = FirebaseFirestore.getInstance()
     private val _status = MutableLiveData<NetworkStatus>()
     val status: LiveData<NetworkStatus> = _status
     private val _items = MutableLiveData<List<ConfectioneryItem>>()
@@ -27,32 +29,31 @@ class ChooseItemsViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
-                ConfectioneryItemFirebase().getItemsAll()
-//                delay(5000)
-//                _items.value = ConfectioneryItemFirebase().getItemsAll()//itemList//getConfectioneryItems()
-//                _status.value = NetworkStatus.DONE
+
+                var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+                db.collection("ConfectioneryItem")
+//            .whereEqualTo("notInProduction", false)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            val message = document.toObject<ConfectioneryItem>()
+                            itemList.add(message)
+                        }
+                        Log.d(TAG, documents.count().toString())
+                        val itemListToReturn: List<ConfectioneryItem> = itemList
+                        _items.value = itemListToReturn
+                        _status.value = NetworkStatus.DONE
+                        Log.d(TAG, "TRY TRY TRY TRY TRY")
+                    }
+                    .addOnFailureListener {
+                        _items.value = listOf()
+                        _status.value = NetworkStatus.ERROR
+                    }
 
 
-//                var count = 0
-//                Log.d(TAG, "TRY TRY TRY TRY TRY")
-//                var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//                ConfectioneryItemFirebase().getAllItems().addOnSuccessListener { documents ->
-//                    for (document in documents) {
-//                        count = count + 1
-//                        Log.d(TAG, "TRY TRY TRY TRY TRY" + count.toString())
-//                        val oneItem = document.toObject<ConfectioneryItem>()
-//                        itemList.add(oneItem)
-//                    }
-//                }
-//
-////                delay(5000)
-////                for (document in 0..count(querySnapshot)) {
-////                    val oneItem = document.toObject<ConfectioneryItem>()
-////                    itemList.add(oneItem)
-////                }
-//                _items.value = itemList//getConfectioneryItems()
-//                _status.value = NetworkStatus.DONE
-                Log.d(TAG, "TRY")
+
+//                ConfectioneryItemFirebase().getItemsAll()
+//                Log.d(TAG, "TRY")
             } catch (e: Exception) {
                 _status.value = NetworkStatus.ERROR
                 _items.value = listOf()
@@ -69,5 +70,6 @@ class ChooseItemsViewModel : ViewModel() {
     }
     public fun notUpdateItems() {
         _items.value = listOf()
+        _status.value = NetworkStatus.ERROR
     }
 }
