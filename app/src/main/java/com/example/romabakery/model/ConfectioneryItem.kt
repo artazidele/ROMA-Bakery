@@ -2,8 +2,8 @@ package com.example.romabakery.model
 
 data class ConfectioneryItem(
     val id: String = "",
-    val title: String = ""//,
-//    val bun: Boolean = false,
+    val title: String = "",
+    val bun: Boolean = false,
 //    val cake: Boolean = false,
 //    val cookies: Boolean = false,
 //    val maxADay: Int = 0,
@@ -12,7 +12,7 @@ data class ConfectioneryItem(
 //    val withoutFlour: Boolean = false,
 //    val withoutLactose: Boolean = false,
 //    val forVegetarians: Boolean = false,
-//    val forVegans: Boolean = false,
+    val forVegans: Boolean = false//,
 //    val canBeOrderedFrom: String = "",
 //    val canBeOrderedUntil: String = "",
 //    val ingredients: String = "",

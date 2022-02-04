@@ -20,7 +20,7 @@ import java.nio.file.Files.size
 enum class NetworkStatus { LOADING, ERROR, DONE }
 
 class ChooseItemsViewModel : ViewModel() {
-//    val db = FirebaseFirestore.getInstance()
+    //    val db = FirebaseFirestore.getInstance()
     private val _status = MutableLiveData<NetworkStatus>()
     val status: LiveData<NetworkStatus> = _status
     private val _items = MutableLiveData<List<ConfectioneryItem>>()
@@ -34,11 +34,16 @@ class ChooseItemsViewModel : ViewModel() {
 //                db.collection("ConfectioneryItem")
 ////            .whereEqualTo("notInProduction", false)
 //                    .get()
-                        ConfectioneryItemFirebase().itemQuery()
+                ConfectioneryItemFirebase().itemQuery()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
                             val message = document.toObject<ConfectioneryItem>()
-                            itemList.add(message)
+                            // Sort data
+                            if (message.bun == true && message.forVegans == true) {
+                                itemList.add(message)
+                            }
+
+//                            itemList.add(message)
                         }
                         Log.d(TAG, documents.count().toString())
                         val itemListToReturn: List<ConfectioneryItem> = itemList
@@ -52,7 +57,6 @@ class ChooseItemsViewModel : ViewModel() {
                     }
 
 
-
 //                ConfectioneryItemFirebase().getItemsAll()
 //                Log.d(TAG, "TRY")
             } catch (e: Exception) {
@@ -62,13 +66,15 @@ class ChooseItemsViewModel : ViewModel() {
             }
         }
     }
+
     public fun updateItems(confectioneryItems: List<ConfectioneryItem>) {
 //        viewModelScope.launch {
-            _items.value = confectioneryItems
-            _status.value = NetworkStatus.DONE
-            Log.d(TAG, "TRY TRY TRY TRY TRY")
+        _items.value = confectioneryItems
+        _status.value = NetworkStatus.DONE
+        Log.d(TAG, "TRY TRY TRY TRY TRY")
 //        }
     }
+
     public fun notUpdateItems() {
         _items.value = listOf()
         _status.value = NetworkStatus.ERROR
