@@ -20,30 +20,44 @@ import java.nio.file.Files.size
 enum class NetworkStatus { LOADING, ERROR, DONE }
 
 class ChooseItemsViewModel : ViewModel() {
-    //    val db = FirebaseFirestore.getInstance()
     private val _status = MutableLiveData<NetworkStatus>()
     val status: LiveData<NetworkStatus> = _status
     private val _items = MutableLiveData<List<ConfectioneryItem>>()
     val items: LiveData<List<ConfectioneryItem>> = _items
-    fun getConfItems() {
+
+    fun getConfItems(
+        bun: Boolean,
+        cake: Boolean,
+        cookies: Boolean,
+        forVegans: Boolean,
+        forVegetarians: Boolean,
+        withoutFlour: Boolean,
+        withoutLactose: Boolean,
+        notContainsAllergens: ArrayList<String>,
+    ) {
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
 
                 var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//                db.collection("ConfectioneryItem")
-////            .whereEqualTo("notInProduction", false)
-//                    .get()
                 ConfectioneryItemFirebase().itemQuery()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
-                            val message = document.toObject<ConfectioneryItem>()
-                            // Sort data
-                            if (message.bun == true && message.forVegans == true) {
-                                itemList.add(message)
+                            val oneItem = document.toObject<ConfectioneryItem>()
+                            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose) {
+                                var isInList = true
+                                for (allergen in notContainsAllergens) {
+                                    for (itemAllergen in oneItem.containsAllergens) {
+                                        if (allergen == itemAllergen) {
+                                            isInList = false
+                                            break
+                                        }
+                                    }
+                                }
+                                if (isInList == true) {
+                                    itemList.add(oneItem)
+                                }
                             }
-
-//                            itemList.add(message)
                         }
                         Log.d(TAG, documents.count().toString())
                         val itemListToReturn: List<ConfectioneryItem> = itemList
@@ -55,10 +69,6 @@ class ChooseItemsViewModel : ViewModel() {
                         _items.value = listOf()
                         _status.value = NetworkStatus.ERROR
                     }
-
-
-//                ConfectioneryItemFirebase().getItemsAll()
-//                Log.d(TAG, "TRY")
             } catch (e: Exception) {
                 _status.value = NetworkStatus.ERROR
                 _items.value = listOf()
@@ -66,6 +76,11 @@ class ChooseItemsViewModel : ViewModel() {
             }
         }
     }
+
+//    private fun sortItems(oneItem: ConfectioneryItem): Boolean {
+//
+//        return
+//    }
 
     public fun updateItems(confectioneryItems: List<ConfectioneryItem>) {
 //        viewModelScope.launch {
