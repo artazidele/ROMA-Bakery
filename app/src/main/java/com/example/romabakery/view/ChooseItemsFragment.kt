@@ -96,9 +96,13 @@ class ChooseItemsFragment : Fragment() {
 //        chooseViewModel.addConfectioneryItem(item)
 
 
-        chooseViewModel.getConfectioneryItems(true, false, false, false, false, false, false, ArrayList<String>(), false)
         binding.photosGrid.adapter = ChooseItemsAdapter()
         binding.photosGrid.visibility = View.VISIBLE
+        if (checkConnectionType() == true) {
+            chooseViewModel.getConfectioneryItems(true, false, false, false, false, false, false, ArrayList<String>(), false)
+//            binding.photosGrid.visibility = View.VISIBLE
+        }
+
 
 
 //        binding.statusRetry.setOnClickListener {
@@ -108,27 +112,7 @@ class ChooseItemsFragment : Fragment() {
         return binding.root
     }
 
-    fun isOnline(): Boolean {
-        val connectivityManager =
-            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
-            val capabilities =
-                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
-                }
-            }
-        }
-        return false
-    }
+
 
 //    private fun checkForInternet(context: Context, connectivityManager: ConnectivityManager): Boolean {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
