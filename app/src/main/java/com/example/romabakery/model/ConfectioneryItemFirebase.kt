@@ -42,7 +42,27 @@ class ConfectioneryItemFirebase {
         return db.collection("ConfectioneryItem").document(item.id)
             .update(
                 mapOf(
-                    "withoutFlour" to item.withoutFlour
+                    "title" to item.title,
+                    "bun" to item.bun,
+                    "cake" to item.cake,
+                    "cookies" to item.cookies,
+                    "maxADay" to item.maxADay,
+                    "eiro" to item.eiro,
+                    "centi" to item.centi,
+                    "withoutFlour" to item.withoutFlour,
+                    "withoutLactose" to item.withoutLactose,
+                    "forVegetarians" to item.withoutLactose,
+                    "forVegans" to item.forVegans,
+                    "canBeOrderedFrom" to item.canBeOrderedFrom,
+                    "canBeOrderedUntil" to item.canBeOrderedUntil,
+                    "ingredients" to item.ingredients,
+                    "description" to item.description,
+                    "weights" to item.weights,
+                    "editedBy" to item.editedBy,
+                    "editedOn" to item.editedOn,
+                    "notInProduction" to item.notInProduction,
+                    "notInProductionBy" to item.notInProductionBy,
+                    "containsAllergens" to item.containsAllergens
                 )
             )
     }

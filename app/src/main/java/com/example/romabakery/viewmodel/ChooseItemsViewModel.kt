@@ -14,6 +14,7 @@ import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.model.ConfectioneryItemFirebase
 import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -43,29 +44,39 @@ class ChooseItemsViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
-
-                var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+//                var itemList: ArrayList<ConfectioneryItem> = ArrayList()
                 ConfectioneryItemFirebase().getItemsInProduction()
                     .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            val oneItem = document.toObject<ConfectioneryItem>()
-                            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose) {
-                                var isInList = true
-                                for (allergen in notContainsAllergens) {
-                                    for (itemAllergen in oneItem.containsAllergens) {
-                                        if (allergen == itemAllergen) {
-                                            isInList = false
-                                            break
-                                        }
-                                    }
-                                }
-                                if (isInList == true) {
-                                    itemList.add(oneItem)
-                                }
-                            }
-                        }
+//                        for (document in documents) {
+//                            val oneItem = document.toObject<ConfectioneryItem>()
+//                            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose && oneItem.notInProduction == notInProduction) {
+//                                var isInList = true
+//                                for (allergen in notContainsAllergens) {
+//                                    for (itemAllergen in oneItem.containsAllergens) {
+//                                        if (allergen == itemAllergen) {
+//                                            isInList = false
+//                                            break
+//                                        }
+//                                    }
+//                                }
+//                                if (isInList == true) {
+//                                    itemList.add(oneItem)
+//                                }
+//                            }
+//                        }
                         Log.d(TAG, documents.count().toString())
-                        val itemListToReturn: List<ConfectioneryItem> = itemList
+                        val itemListToReturn: List<ConfectioneryItem> = sortItems(
+                            bun,
+                            cake,
+                            cookies,
+                            forVegans,
+                            forVegetarians,
+                            withoutFlour,
+                            withoutLactose,
+                            notContainsAllergens,
+                            notInProduction,
+                            documents
+                        )//itemList
                         _items.value = itemListToReturn
                         _status.value = NetworkStatus.DONE
                         Log.d(TAG, "TRY TRY TRY TRY TRY")
@@ -80,6 +91,39 @@ class ChooseItemsViewModel : ViewModel() {
                 Log.d(TAG, "CATCH")
             }
         }
+    }
+
+    fun sortItems(
+        bun: Boolean,
+        cake: Boolean,
+        cookies: Boolean,
+        forVegans: Boolean,
+        forVegetarians: Boolean,
+        withoutFlour: Boolean,
+        withoutLactose: Boolean,
+        notContainsAllergens: ArrayList<String>,
+        notInProduction: Boolean,
+        documents: QuerySnapshot
+    ): ArrayList<ConfectioneryItem> {
+        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+        for (document in documents) {
+            val oneItem = document.toObject<ConfectioneryItem>()
+            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose && oneItem.notInProduction == notInProduction) {
+                var isInList = true
+                for (allergen in notContainsAllergens) {
+                    for (itemAllergen in oneItem.containsAllergens) {
+                        if (allergen == itemAllergen) {
+                            isInList = false
+                            break
+                        }
+                    }
+                }
+                if (isInList == true) {
+                    itemList.add(oneItem)
+                }
+            }
+        }
+        return itemList
     }
 
 
