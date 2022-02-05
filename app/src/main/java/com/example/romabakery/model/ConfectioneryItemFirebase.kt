@@ -12,163 +12,112 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 
 class ConfectioneryItemFirebase {
     val db = FirebaseFirestore.getInstance()
 
-    suspend fun itemQuery(): Task<QuerySnapshot> {
-        return db.collection("ConfectioneryItem")
-//            .whereEqualTo("notInProduction", false)
-            .get()
-    }
 
-    //    suspend fun getConfectioneryItems() {
-//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//        db.collection("ConfectioneryItem")
-//            .whereEqualTo("notInProduction", false)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    val bun = document.toObject<ConfectioneryItem>()
-//                    itemList.add(bun)
-//                }
-//                val itemListToReturn: List<ConfectioneryItem> = itemList
-//                ChooseItemsViewModel().updateItems(itemListToReturn)
-//            }
-//    }
-    suspend fun getItems(): List<ConfectioneryItem> {
-//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//        db.collection("ConfectioneryItem")
-//            .whereEqualTo("notInProduction", false)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    val bun = document.toObject<ConfectioneryItem>()
-//                    itemList.add(bun)
-//                }
-//            }
-//        val itemListToReturn: List<ConfectioneryItem> = itemList
-        return getItemsFromDb()//itemListToReturn
-    }
+    suspend fun returnItemsInProduction(): List<ConfectioneryItem> {
 
-    private fun getItemsFromDb(): List<ConfectioneryItem> {
         var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-        db.collection("ConfectioneryItem")
+        coroutineScope {
+            async {
+                db.collection("ConfectioneryItem")
+                    .whereEqualTo("notInProduction", false)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            Log.d(TAG, "TRY TRY TRY TRY TRY")
+                            val oneItem = document.toObject<ConfectioneryItem>()
+                            itemList.add(oneItem)
+                        }
+                    }
+            }
+                .await()
+        }
+
+        return itemList
+
+
+
+
+    }
+
+    suspend fun getItemsInProduction(): Task<QuerySnapshot> {
+        return db.collection("ConfectioneryItem")
             .whereEqualTo("notInProduction", false)
             .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val bun = document.toObject<ConfectioneryItem>()
-                    itemList.add(bun)
-                }
-            }
-        val itemListToReturn: List<ConfectioneryItem> = itemList
-        return itemListToReturn
     }
-//
-//    suspend fun getConItems() {
-//        val campaignsRef = db.collection('campaigns')
-//        let activeRef = await campaignsRef.where('active', '==', true).select().get()
-//        for (campaign of activeRef.docs) {
-//            console.log(campaign.id)
-//        }
+
+    suspend fun getItemsNotInProduction(): Task<QuerySnapshot> {
+        return db.collection("ConfectioneryItem")
+            .whereEqualTo("notInProduction", true)
+            .get()
+    }
+
+//    suspend fun addItem(item: ConfectioneryItem): Task<Void> {
+//        return db.collection("ConfectioneryItem").document(item.id)
+//            .set(item)
 //    }
 
-
-//    suspend fun getDataFromFireStore(childName : String)
-//            : DocumentSnapshot?{
-//        return try{
-//            val data = db
-//                .collection("ConfectioneryItem")
-//                .document(childName)
-//                .get()
-//                .await()
-//            data
-//        }catch (e : Exception){
-//            null
-//        }
-//    }
-
-//    suspend fun getAllItems() = awaitAll() for {
-//        db.collection("ConfectioneryItem")
-////        .whereEqualTo("notInProduction", false)
-//            .get()
-////        .result
-//    }
-
-    suspend fun getAllItems() = db
-        .collection("ConfectioneryItem")
-//        .whereEqualTo("notInProduction", false)
-        .get()
+//    suspend fun getOwner() = firestore
+//        .collection("Chat")
+//        .document("cF7DrENgQ4noWjr3SxKX")
+//        .get()
+//        .await()
 //        .result
 
-//    suspend fun getItemsAll(): List<ConfectioneryItem>? {
-//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//        db.collection("ConfectioneryItem")
-////        .whereEqualTo("notInProduction", false)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    Log.d(TAG, "TRY TRY TRY TRY TRY")
-//                    val oneItem = document.toObject<ConfectioneryItem>()
-//                    itemList.add(oneItem)
-//                }
-//            }
-//        delay(5000)
-//        return itemList
-//    }
 
-    suspend fun getItemsAll() {
-        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-        db.collection("ConfectioneryItem")
-//            .whereEqualTo("notInProduction", false)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val message = document.toObject<ConfectioneryItem>()
-                    itemList.add(message)
-                }
-                Log.d(TAG, documents.count().toString())
-                val itemListToReturn: List<ConfectioneryItem> = itemList
-                ChooseItemsViewModel().updateItems(itemListToReturn)
-            }
-            .addOnFailureListener {
-                ChooseItemsViewModel().notUpdateItems()
-            }
+    suspend fun addItem(item: ConfectioneryItem): Task<Void> {
+//        coroutineScope {
+//            async {
+//                db.collection("ConfectioneryItem").document(item.id)
+//                    .set(item)
+//            }
+//                .await()
+//        }
+        return db.collection("ConfectioneryItem").document(item.id)
+            .set(item)
+
+
     }
 
-
-//    fun getAllIt(): List<ConfectioneryItem>? {
-//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//
-//        return try {
-//            db.collection("ConfectioneryItem")
-////        .whereEqualTo("notInProduction", false)
-//                .get()
-//                .addOnSuccessListener { documents ->
-//                    for (document in documents) {
-//                        Log.d(TAG, "TRY TRY TRY TRY TRY")
-//                        val oneItem = document.toObject<ConfectioneryItem>()
-//                        itemList.add(oneItem)
-//                    }
-//                }
-//                .addOnFailureListener {
-//
-//                }
+//    suspend fun addItemsAsync(item: ConfectioneryItem): Task<Void> {
+//        var task: Task<Void>
+//        coroutineScope {
+//            task = async {
+//                db.collection("ConfectioneryItem").document(item.id)
+//                    .set(item)
+//            }
+//            deferredOne.await()
 //        }
-//        return itemList
+//        return
 //    }
 
-//    suspend fun authenticate(
-//        email: String,
-//        password: String
-//    ): FirebaseUser? {
-//        firebaseAuth.signInWithEmailAndPassword(
-//            email, password).await()
-//        return firebaseAuth.currentUser ?:
-//        throw FirebaseAuthException("", "")
-//    }
+    suspend fun addItemAsynfffffc(item: ConfectioneryItem) =
+        coroutineScope {
+            val deferredOne = async {
+                db.collection("ConfectioneryItem").document(item.id)
+                    .set(item)
+            }
+            val deferredTwo = async { }
+            deferredOne.await()
+            deferredTwo.await()
+        }
+
+
+    suspend fun updateItem(item: ConfectioneryItem) {
+
+    }
+
+    suspend fun deleteItem(item: ConfectioneryItem) {
+
+    }
+
 }
 
