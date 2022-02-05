@@ -59,7 +59,7 @@ class ChooseItemsFragment : Fragment() {
         binding.viewModel = chooseViewModel
 
         val item = ConfectioneryItem(
-            "987",
+            "987654",
             "title",
             true,
             false,
@@ -67,7 +67,7 @@ class ChooseItemsFragment : Fragment() {
             10,
             10,
             10,
-            false,
+            true,
             false,
             false,
             false,
@@ -83,15 +83,13 @@ class ChooseItemsFragment : Fragment() {
             "notInProductionBy",
             ArrayList<String>(),
         )
-//        checkConnectionType()
-
-
-//        if (checkConnectionType() == true) {
+        if (checkConnectionType() == true) {
 //            chooseViewModel.addConfectioneryItem(item)
-//            Log.d(TAG, "INTERNET TRUE")
-//        } else {
-//            Log.d(TAG, "INTERNET FALSE")
-//        }
+            chooseViewModel.updateConfectioneryItem(item)
+            Log.d(TAG, "INTERNET TRUE")
+        } else {
+            Log.d(TAG, "INTERNET FALSE")
+        }
 
 //        chooseViewModel.addConfectioneryItem(item)
 
@@ -100,7 +98,6 @@ class ChooseItemsFragment : Fragment() {
         binding.photosGrid.visibility = View.VISIBLE
         if (checkConnectionType() == true) {
             chooseViewModel.getConfectioneryItems(true, false, false, false, false, false, false, ArrayList<String>(), false)
-//            binding.photosGrid.visibility = View.VISIBLE
         }
 
 
@@ -114,22 +111,6 @@ class ChooseItemsFragment : Fragment() {
 
 
 
-//    private fun checkForInternet(context: Context, connectivityManager: ConnectivityManager): Boolean {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            val network = connectivityManager.activeNetwork ?: return false
-//            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-//            return when {
-//                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-//                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-//                else -> false
-//            }
-//        } else {
-//            @Suppress("DEPRECATION") val networkInfo =
-//                connectivityManager.activeNetworkInfo ?: return false
-//            @Suppress("DEPRECATION")
-//            return networkInfo.isConnected
-//        }
-//    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        inflater.inflate(R.menu.menu_layout, menu)
@@ -143,16 +124,4 @@ class ChooseItemsFragment : Fragment() {
 //        }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-//        val connectivityManager = CreateOrderActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-
-//        showCountWindow()
-    }
-
-
 }

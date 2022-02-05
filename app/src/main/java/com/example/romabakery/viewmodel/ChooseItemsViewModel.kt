@@ -84,22 +84,35 @@ class ChooseItemsViewModel : ViewModel() {
 
 
     fun addConfectioneryItem(item: ConfectioneryItem) {
-
-
         viewModelScope.launch {
             _status.value = NetworkStatus.LOADING
             try {
-//                async {
                 ConfectioneryItemFirebase().addItem(item)
-                    .addOnCompleteListener {
+                    .addOnSuccessListener {
                         Log.d(TAG, "SUCCEESS")
                     }
-                    .addOnCanceledListener {
+                    .addOnFailureListener {
                         Log.d(TAG, "FAILURE")
                     }
                 Log.d(TAG, "TRY")
-//                }
-//                    .await()
+            } catch (e: Exception) {
+                Log.d(TAG, "CATCH")
+            }
+        }
+    }
+
+    fun updateConfectioneryItem(item: ConfectioneryItem) {
+        viewModelScope.launch {
+            _status.value = NetworkStatus.LOADING
+            try {
+                ConfectioneryItemFirebase().updateItem(item)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "UPDATED SUCCEESS")
+                    }
+                    .addOnFailureListener {
+                        Log.d(TAG, "UPDATED FAILURE")
+                    }
+                Log.d(TAG, "TRY")
             } catch (e: Exception) {
                 Log.d(TAG, "CATCH")
             }
