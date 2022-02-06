@@ -26,7 +26,7 @@ fun bindStatus(statusTextView: TextView, status: NetworkStatus?) {
         }
         NetworkStatus.ERROR -> {
             statusTextView.visibility = View.VISIBLE
-            statusTextView.text = "No Internet connection."
+            statusTextView.text = "Something went wrong."
         }
         NetworkStatus.DONE -> {
             statusTextView.visibility = View.GONE

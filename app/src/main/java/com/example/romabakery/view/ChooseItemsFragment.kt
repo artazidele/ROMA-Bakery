@@ -86,6 +86,7 @@ class ChooseItemsFragment : Fragment() {
         if (checkConnectionType() == true) {
 //            chooseViewModel.addConfectioneryItem(item)
 //            chooseViewModel.updateConfectioneryItem(item)
+//            chooseViewModel.deleteConfectioneryItem(item.id)
             Log.d(TAG, "INTERNET TRUE")
         } else {
             Log.d(TAG, "INTERNET FALSE")

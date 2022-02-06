@@ -21,6 +21,17 @@ import kotlinx.coroutines.delay
 class ConfectioneryItemFirebase {
     val db = FirebaseFirestore.getInstance()
 
+    suspend fun getOneItems(id: String): Task<DocumentSnapshot> {
+        return db.collection("ConfectioneryItem")
+            .document(id)
+            .get()
+    }
+
+    suspend fun getAllItems(): Task<QuerySnapshot> {
+        return db.collection("ConfectioneryItem")
+            .get()
+    }
+
     suspend fun getItemsInProduction(): Task<QuerySnapshot> {
         return db.collection("ConfectioneryItem")
             .whereEqualTo("notInProduction", false)
@@ -67,9 +78,9 @@ class ConfectioneryItemFirebase {
             )
     }
 
-    suspend fun deleteItem(item: ConfectioneryItem) {
-
+    suspend fun deleteItem(id: String): Task<Void> {
+        return db.collection("ConfectioneryItem").document(id)
+            .delete()
     }
 
 }
-
