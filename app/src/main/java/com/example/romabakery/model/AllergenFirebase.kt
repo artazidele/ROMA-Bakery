@@ -4,7 +4,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.toObject
 
 class AllergenFirebase {
     val db = FirebaseFirestore.getInstance()
@@ -42,21 +41,4 @@ class AllergenFirebase {
         return db.collection("Allergen").document(id)
             .delete()
     }
-
-//    suspend fun checkIfAllergenCanBeDeleted(id: String): ArrayList<ConfectioneryItem> {
-//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-//        ConfectioneryItemFirebase().getAllItems()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    val oneItem = document.toObject<ConfectioneryItem>()
-//                    for (allergen in oneItem.containsAllergens) {
-//                        if (allergen == id) {
-//                            itemList.add(oneItem)
-//                            break
-//                        }
-//                    }
-//                }
-//            }
-//        return itemList
-//    }
 }

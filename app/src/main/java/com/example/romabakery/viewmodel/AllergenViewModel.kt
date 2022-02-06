@@ -80,7 +80,7 @@ class AllergenViewModel: ViewModel() {
 
     fun updateAllergen(allergen: Allergen) {
         viewModelScope.launch {
-            AllergenFirebase().addAllergen(allergen)
+            AllergenFirebase().updateAllergen(allergen)
                 .addOnSuccessListener {
                     Log.d(ContentValues.TAG, "UPDATED ALLERGEN SUCCEESS")
                 }
