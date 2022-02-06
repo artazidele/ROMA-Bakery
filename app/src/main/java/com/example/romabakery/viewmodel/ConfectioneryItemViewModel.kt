@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.romabakery.model.Allergen
+import com.example.romabakery.model.AllergenFirebase
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.model.ConfectioneryItemFirebase
 import com.google.firebase.firestore.QuerySnapshot
@@ -54,6 +56,19 @@ class ChooseItemsViewModel : ViewModel() {
                 .addOnFailureListener {
                     _items.value = listOf()
                     _status.value = NetworkStatus.ERROR
+                }
+        }
+    }
+
+    fun getConfectioneryItem(id: String) {
+        viewModelScope.launch {
+            ConfectioneryItemFirebase().getOneItem(id)
+                .addOnSuccessListener { document ->
+                    val item = document.toObject<ConfectioneryItem>()
+                    Log.d(TAG, item!!.title)
+                }
+                .addOnFailureListener {
+
                 }
         }
     }

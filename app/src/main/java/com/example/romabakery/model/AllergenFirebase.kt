@@ -43,20 +43,20 @@ class AllergenFirebase {
             .delete()
     }
 
-    suspend fun checkIfAllergenCanBeDeleted(id: String): ArrayList<ConfectioneryItem> {
-        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-        ConfectioneryItemFirebase().getAllItems()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val oneItem = document.toObject<ConfectioneryItem>()
-                    for (allergen in oneItem.containsAllergens) {
-                        if (allergen == id) {
-                            itemList.add(oneItem)
-                            break
-                        }
-                    }
-                }
-            }
-        return itemList
-    }
+//    suspend fun checkIfAllergenCanBeDeleted(id: String): ArrayList<ConfectioneryItem> {
+//        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+//        ConfectioneryItemFirebase().getAllItems()
+//            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    val oneItem = document.toObject<ConfectioneryItem>()
+//                    for (allergen in oneItem.containsAllergens) {
+//                        if (allergen == id) {
+//                            itemList.add(oneItem)
+//                            break
+//                        }
+//                    }
+//                }
+//            }
+//        return itemList
+//    }
 }

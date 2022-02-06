@@ -15,12 +15,29 @@ import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.launch
 
 enum class AllergenStatus { LOADING, ERROR, DONE }
+enum class AllergenDeleteStatus { LOADING, ERROR, DONE }
 
 class AllergenViewModel: ViewModel() {
     private val _status = MutableLiveData<AllergenStatus>()
     val status: LiveData<AllergenStatus> = _status
+    private val _deletestatus = MutableLiveData<AllergenDeleteStatus>()
+    val deletestatus: LiveData<AllergenDeleteStatus> = _deletestatus
     private val _allergens = MutableLiveData<List<Allergen>>()
     val allergens: LiveData<List<Allergen>> = _allergens
+
+    var deleteStatusDone = false
+
+    fun getAllergen(id: String) {
+        viewModelScope.launch {
+            AllergenFirebase().getOneAllergen(id)
+                .addOnSuccessListener { document ->
+                    val allergen = document.toObject<Allergen>()
+                }
+                .addOnFailureListener {
+
+                }
+        }
+    }
 
     fun getAllergens() {
         viewModelScope.launch {
@@ -75,8 +92,9 @@ class AllergenViewModel: ViewModel() {
 
     fun deleteAllergen(id: String) {
         viewModelScope.launch {
-            val itemsWhereIsAllergen = AllergenFirebase().checkIfAllergenCanBeDeleted(id)
-            if (itemsWhereIsAllergen == ArrayList<ConfectioneryItem>()) {
+            _deletestatus.value = AllergenDeleteStatus.LOADING
+            val itemsWhereIsAllergen = checkIfAllergenCanBeDeleted(id)
+            if (itemsWhereIsAllergen == ArrayList<ConfectioneryItem>() && deleteStatusDone == true) {
                 Log.d(ContentValues.TAG, "CAN BE DELETED")
                 AllergenFirebase().deleteAllergen(id)
                     .addOnSuccessListener {
@@ -90,5 +108,27 @@ class AllergenViewModel: ViewModel() {
             }
 
         }
+    }
+
+    suspend fun checkIfAllergenCanBeDeleted(id: String): ArrayList<ConfectioneryItem> {
+        var itemList: ArrayList<ConfectioneryItem> = ArrayList()
+        ConfectioneryItemFirebase().getAllItems()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val oneItem = document.toObject<ConfectioneryItem>()
+                    for (allergen in oneItem.containsAllergens) {
+                        if (allergen == id) {
+                            itemList.add(oneItem)
+                            break
+                        }
+                    }
+                }
+                _deletestatus.value = AllergenDeleteStatus.DONE
+                deleteStatusDone = true
+            }
+            .addOnFailureListener {
+                _deletestatus.value = AllergenDeleteStatus.ERROR
+            }
+        return itemList
     }
 }

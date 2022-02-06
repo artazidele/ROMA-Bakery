@@ -87,6 +87,7 @@ class ChooseItemsFragment : Fragment() {
 //            chooseViewModel.addConfectioneryItem(item)
 //            chooseViewModel.updateConfectioneryItem(item)
 //            chooseViewModel.deleteConfectioneryItem(item.id)
+            chooseViewModel.getConfectioneryItem("123")
             Log.d(TAG, "INTERNET TRUE")
         } else {
             Log.d(TAG, "INTERNET FALSE")
