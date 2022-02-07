@@ -67,6 +67,8 @@ class AllergenActivity : AppCompatActivity() {
         binding.allAllergenRecyclerView.visibility = View.VISIBLE
         if (checkConnectionType(this) == true) {
             showAllergens() //allergenViewModel.getAllAllergens()
+//            allergenViewModel.getAllAllergens()
+//            binding.allAllergenRecyclerView.visibility = View.VISIBLE
         }
 
 //        setHasOptionsMenu(true)
@@ -88,7 +90,7 @@ class AllergenActivity : AppCompatActivity() {
 
     public fun addNewAllergen() {
         Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
-        val allergen = Allergen("128", "Ceturtais alergēns", "madeBy", ArrayList<String>(), ArrayList<String>())
+        val allergen = Allergen("1292", "Ceturtais alergēns", "madeBy", ArrayList<String>(), ArrayList<String>())
         if (checkConnectionType(this) == true) {
             binding.allAllergenRecyclerView.visibility = View.INVISIBLE
             allergenViewModel.addAllergen(allergen)
@@ -98,7 +100,7 @@ class AllergenActivity : AppCompatActivity() {
 
     public fun showAllergens() {
         allergenViewModel.getAllAllergens()
-        binding.allAllergenRecyclerView.visibility = View.VISIBLE
+//        binding.allAllergenRecyclerView.visibility = View.VISIBLE
     }
 
 }

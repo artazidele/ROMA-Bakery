@@ -24,6 +24,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:allergenList="@{viewModel.allergens}"
+            app:allergenRecyclerViewStatus="@{viewModel.status}"
             tools:listitem="@layout/all_allergen_list_row" />
 
         <TextView

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.model.Allergen
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.view.allergens.AllergenAdapter
-import com.example.romabakery.viewmodel.AllergenStatus
+import com.example.romabakery.viewmodel.NetworkLoadingStatus
 import com.example.romabakery.viewmodel.NetworkStatus
 
 @BindingAdapter("allergenList")
@@ -20,32 +20,46 @@ fun bindAllergenRecyclerView(recyclerView: RecyclerView, data: List<Allergen>?) 
 fun bindAllergenTitle(textView: TextView, text: String?) {
     textView.text = text
 }
-@BindingAdapter("allergenStatus")
-fun bindAllergenStatus(statusTextView: TextView, status: AllergenStatus?) {
+@BindingAdapter("allergenRecyclerViewStatus")
+fun bindAllergenRecyclerViewStatus(recyclerView: RecyclerView, status: NetworkLoadingStatus?) {
     when (status) {
-        AllergenStatus.LOADING -> {
+        NetworkLoadingStatus.LOADING -> {
+            recyclerView.visibility = View.GONE
+        }
+        NetworkLoadingStatus.ERROR -> {
+            recyclerView.visibility = View.GONE
+        }
+        NetworkLoadingStatus.DONE -> {
+            recyclerView.visibility = View.VISIBLE
+        }
+    }
+}
+@BindingAdapter("allergenStatus")
+fun bindNetworkLoadingStatus(statusTextView: TextView, status: NetworkLoadingStatus?) {
+    when (status) {
+        NetworkLoadingStatus.LOADING -> {
             statusTextView.visibility = View.VISIBLE
             statusTextView.text = "Loading..."
         }
-        AllergenStatus.ERROR -> {
+        NetworkLoadingStatus.ERROR -> {
             statusTextView.visibility = View.VISIBLE
             statusTextView.text = "Something went wrong."
         }
-        AllergenStatus.DONE -> {
+        NetworkLoadingStatus.DONE -> {
             statusTextView.visibility = View.GONE
         }
     }
 }
 @BindingAdapter("allergenButtonStatus")
-fun bindAllergenButtonStatus(statusTextView: Button, status: AllergenStatus?) {
+fun bindAllergenButtonStatus(statusTextView: Button, status: NetworkLoadingStatus?) {
     when (status) {
-        AllergenStatus.LOADING -> {
+        NetworkLoadingStatus.LOADING -> {
             statusTextView.visibility = View.GONE
         }
-        AllergenStatus.ERROR -> {
+        NetworkLoadingStatus.ERROR -> {
             statusTextView.visibility = View.VISIBLE
         }
-        AllergenStatus.DONE -> {
+        NetworkLoadingStatus.DONE -> {
             statusTextView.visibility = View.GONE
         }
     }
