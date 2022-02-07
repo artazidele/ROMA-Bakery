@@ -6,19 +6,16 @@ import android.net.ConnectivityManager
 enum class NetworkLoadingStatus { LOADING, ERROR, DONE }
 
 class NetworkViewModel {
-    private fun checkConnectionType(context: Context): Boolean {
+    public fun checkConnection(context: Context): Boolean {
+        var isConnection = false
         val connectionManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifi_Connection = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        val mobile_data_connection =
+        val wifiConnection = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        val mobileDataConnection =
             connectionManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-        if (wifi_Connection!!.isConnectedOrConnecting) {
-            return true
-        } else {
-            if (mobile_data_connection!!.isConnectedOrConnecting) {
-                return true
-            }
+        if (wifiConnection!!.isConnectedOrConnecting || mobileDataConnection!!.isConnectedOrConnecting) {
+            isConnection = true
         }
-        return false
+        return isConnection
     }
 }

@@ -20,37 +20,9 @@ import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.view.ChooseItemsAdapter
 import com.example.romabakery.viewmodel.AllergenViewModel
 import com.example.romabakery.viewmodel.ChooseItemsViewModel
+import com.example.romabakery.viewmodel.NetworkViewModel
 
 class AllergenActivity : AppCompatActivity() {
-
-    fun toast(msg: String, context: Context) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun checkConnectionType(context: Context): Boolean {
-        val connectionManager =
-            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifi_Connection = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        val mobile_data_connection =
-            connectionManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-
-        if (wifi_Connection!!.isConnectedOrConnecting) {
-            toast("WIFI Connection is on", context)
-            return true
-        } else {
-            if (mobile_data_connection!!.isConnectedOrConnecting) {
-                toast("Mobile Data Connection is on", context)
-                return true
-            } else {
-                toast("No Network Connection", context)
-            }
-        }
-        return false
-    }
-
-
-
-
     private val allergenViewModel: AllergenViewModel by viewModels()
     private lateinit var binding: ActivityAllergenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +37,7 @@ class AllergenActivity : AppCompatActivity() {
 
         binding.allAllergenRecyclerView.adapter = AllergenAdapter()
         binding.allAllergenRecyclerView.visibility = View.VISIBLE
-        if (checkConnectionType(this) == true) {
+        if (NetworkViewModel().checkConnection(this) == true) {
             showAllergens() //allergenViewModel.getAllAllergens()
 //            allergenViewModel.getAllAllergens()
 //            binding.allAllergenRecyclerView.visibility = View.VISIBLE
@@ -91,7 +63,7 @@ class AllergenActivity : AppCompatActivity() {
     public fun addNewAllergen() {
         Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
         val allergen = Allergen("1297", "Ceturtais alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-        if (checkConnectionType(this) == true) {
+        if (NetworkViewModel().checkConnection(this) == true) {
             binding.allAllergenRecyclerView.visibility = View.INVISIBLE
             allergenViewModel.addAllergen(allergen)
             showAllergens()

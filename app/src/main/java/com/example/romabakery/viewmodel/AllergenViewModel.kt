@@ -22,11 +22,6 @@ class AllergenViewModel : ViewModel() {
     val status: LiveData<NetworkLoadingStatus> = _status
     private val _allergens = MutableLiveData<List<Allergen>>()
     val allergens: LiveData<List<Allergen>> = _allergens
-//    private val _items = MutableLiveData<List<ConfectioneryItem>>()
-//    val items: LiveData<List<ConfectioneryItem>> = _items
-
-
-//    var deleteStatusDone = false
 
     fun getAllergen(id: String) {
         viewModelScope.launch {
@@ -88,12 +83,13 @@ class AllergenViewModel : ViewModel() {
         }
     }
 
-    fun updateAllergen(allergen: Allergen) {
+    fun updateAllergen(allergen: Allergen, holder: RecyclerView.ViewHolder) {
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().updateAllergen(allergen)
                 .addOnSuccessListener {
                     _status.value = NetworkLoadingStatus.DONE
+                    AllergenAdapter().changeAllergenTitle(holder, allergen.title)
                     Log.d(ContentValues.TAG, "UPDATED ALLERGEN SUCCEESS")
                 }
                 .addOnFailureListener {

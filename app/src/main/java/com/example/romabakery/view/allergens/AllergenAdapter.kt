@@ -15,6 +15,7 @@ import com.example.romabakery.databinding.AllAllergenListRowBinding
 import com.example.romabakery.model.Allergen
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.viewmodel.AllergenViewModel
+import com.example.romabakery.viewmodel.NetworkViewModel
 
 class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(AllergenAdapter) {
     class AllergenViewHolder(
@@ -46,7 +47,6 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         parent: ViewGroup,
         viewType: Int
     ): AllergenViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.all_allergen_list_row, parent, false)
         return AllergenViewHolder(
             AllAllergenListRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
@@ -59,20 +59,23 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
             deleteAllergen(item.id, holder)
         }
         holder.itemView.findViewById<Button>(R.id.edit_allergen_button).setOnClickListener {
-            updateAllergen(item)
+            updateAllergen(item, holder)
         }
     }
 
-
     public fun deleteAllergen(id: String, holder: RecyclerView.ViewHolder) {
-        AllergenViewModel().deleteAllergen(id)
-        Log.d(TAG, "DELETE ALLERGEN: " + id)
-        if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
-            Log.d(TAG, "CAN BE DELETED")
-            // Te velreiz parjauta
-            AllergenViewModel().completeDeleteAllergen(id, holder)
-        } else {
-            Log.d(TAG, "CANNOT BE DELETED")
+        if (NetworkViewModel().checkConnection(holder.itemView.context) == true) {
+            AllergenViewModel().deleteAllergen(id)
+            Log.d(TAG, "DELETE ALLERGEN: " + id)
+            if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
+                Log.d(TAG, "CAN BE DELETED")
+                // Te velreiz parjauta
+                if (NetworkViewModel().checkConnection(holder.itemView.context) == true) {
+                    AllergenViewModel().completeDeleteAllergen(id, holder)
+                }
+            } else {
+                Log.d(TAG, "CANNOT BE DELETED")
+            }
         }
     }
 
@@ -83,10 +86,16 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         holder.itemView.findViewById<Button>(R.id.edit_allergen_button).visibility = View.GONE
     }
 
-    public fun updateAllergen(allergen: Allergen) {
+    public fun updateAllergen(allergen: Allergen, holder: RecyclerView.ViewHolder) {
         val updatedAllergen =
-            Allergen(allergen.id, "newTitle", allergen.madeBy, allergen.editedBy, allergen.editedOn)
-        AllergenViewModel().updateAllergen(updatedAllergen)
-        Log.d(TAG, "EDIT ALLERGEN: " + allergen.title)
+            Allergen(allergen.id, "EditedTitle", allergen.madeBy, allergen.editedBy, allergen.editedOn)
+        if (NetworkViewModel().checkConnection(holder.itemView.context) == true) {
+            AllergenViewModel().updateAllergen(updatedAllergen, holder)
+            Log.d(TAG, "EDIT ALLERGEN: " + allergen.title)
+        }
+    }
+
+    public fun changeAllergenTitle(holder: RecyclerView.ViewHolder, newTitle: String) {
+        holder.itemView.findViewById<TextView>(R.id.allergen_title).text = newTitle
     }
 }
