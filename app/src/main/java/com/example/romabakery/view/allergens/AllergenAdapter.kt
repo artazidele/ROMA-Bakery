@@ -46,8 +46,9 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         parent: ViewGroup,
         viewType: Int
     ): AllergenViewHolder {
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.all_allergen_list_row, parent, false)
         return AllergenViewHolder(
-            AllAllergenListRowBinding.inflate(LayoutInflater.from(parent.context))
+            AllAllergenListRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -76,11 +77,10 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
     }
 
     public fun hideDeletedRow(holder: RecyclerView.ViewHolder) {
-//        AllergenActivity().showAllergens()
-        holder.itemView.findViewById<TextView>(R.id.allergen_title).text = "Šis alergēns tika dzēsts."
+        holder.itemView.findViewById<TextView>(R.id.deleted_allergen_title).visibility = View.VISIBLE
+        holder.itemView.findViewById<TextView>(R.id.allergen_title).visibility = View.INVISIBLE
         holder.itemView.findViewById<Button>(R.id.delete_allergen_button).visibility = View.GONE
         holder.itemView.findViewById<Button>(R.id.edit_allergen_button).visibility = View.GONE
-        Log.d(TAG, "CAN BE DELETED CAN BE DELETED")
     }
 
     public fun updateAllergen(allergen: Allergen) {

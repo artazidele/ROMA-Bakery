@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -27,6 +26,21 @@
             android:gravity="center"
             android:textSize="20dp"
             android:fontFamily="sans-serif"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/deleted_allergen_title"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginLeft="4dp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            android:text="Šis alergēns tika izdzēsts"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
