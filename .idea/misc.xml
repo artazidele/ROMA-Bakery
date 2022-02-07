@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/activity_allergen.xml" value="0.20018115942028986" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/activity_create_order.xml" value="0.125" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/all_allergen_list_row.xml" value="0.264" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/fragment_choose_items.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/order_confectionery_item.xml" value="0.125" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/menu/confectionery_menu.xml" value="0.21770833333333334" />
       </map>
     </option>
   </component>
