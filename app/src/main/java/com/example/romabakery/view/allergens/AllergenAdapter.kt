@@ -3,6 +3,7 @@ package com.example.romabakery.view.allergens
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.DiffUtil
@@ -53,7 +54,7 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.findViewById<Button>(R.id.delete_allergen_button).setOnClickListener {
-            deleteAllergen(item.id)
+            deleteAllergen(item.id, holder)
         }
         holder.itemView.findViewById<Button>(R.id.edit_allergen_button).setOnClickListener {
             updateAllergen(item)
@@ -61,21 +62,28 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
     }
 
 
-    public fun deleteAllergen(id: String) {
+    public fun deleteAllergen(id: String, holder: RecyclerView.ViewHolder) {
         AllergenViewModel().deleteAllergen(id)
         Log.d(TAG, "DELETE ALLERGEN: " + id)
         if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
             Log.d(TAG, "CAN BE DELETED")
-            AllergenViewModel().completeDeleteAllergen(id)
-//            AllergenActivity().showAllergens()
+            AllergenViewModel().completeDeleteAllergen(id, holder)
+//            holder.itemView.visibility = View.GONE
+//            Log.d(TAG, "CAN BE DELETED CAN BE DELETED")
         } else {
-            AllergenViewModel().completeDeleteAllergen(id)
+//            AllergenViewModel().completeDeleteAllergen(id, holder)
             Log.d(TAG, "CANNOT BE DELETED")
         }
     }
 
+    public fun hideDeletedRow(holder: RecyclerView.ViewHolder) {
+        holder.itemView.visibility = View.GONE
+        Log.d(TAG, "CAN BE DELETED CAN BE DELETED")
+    }
+
     public fun updateAllergen(allergen: Allergen) {
-        val updatedAllergen = Allergen(allergen.id, "newTitle", allergen.madeBy, allergen.editedBy, allergen.editedOn)
+        val updatedAllergen =
+            Allergen(allergen.id, "newTitle", allergen.madeBy, allergen.editedBy, allergen.editedOn)
         AllergenViewModel().updateAllergen(updatedAllergen)
         Log.d(TAG, "EDIT ALLERGEN: " + allergen.title)
     }
