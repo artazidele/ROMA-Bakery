@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -67,17 +68,18 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         Log.d(TAG, "DELETE ALLERGEN: " + id)
         if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
             Log.d(TAG, "CAN BE DELETED")
+            // Te velreiz parjauta
             AllergenViewModel().completeDeleteAllergen(id, holder)
-//            holder.itemView.visibility = View.GONE
-//            Log.d(TAG, "CAN BE DELETED CAN BE DELETED")
         } else {
-//            AllergenViewModel().completeDeleteAllergen(id, holder)
             Log.d(TAG, "CANNOT BE DELETED")
         }
     }
 
     public fun hideDeletedRow(holder: RecyclerView.ViewHolder) {
-        holder.itemView.visibility = View.GONE
+//        AllergenActivity().showAllergens()
+        holder.itemView.findViewById<TextView>(R.id.allergen_title).text = "Šis alergēns tika dzēsts."
+        holder.itemView.findViewById<Button>(R.id.delete_allergen_button).visibility = View.GONE
+        holder.itemView.findViewById<Button>(R.id.edit_allergen_button).visibility = View.GONE
         Log.d(TAG, "CAN BE DELETED CAN BE DELETED")
     }
 

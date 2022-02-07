@@ -11,6 +11,7 @@ import com.example.romabakery.model.Allergen
 import com.example.romabakery.model.AllergenFirebase
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.model.ConfectioneryItemFirebase
+import com.example.romabakery.view.allergens.AllergenActivity
 import com.example.romabakery.view.allergens.AllergenAdapter
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
@@ -110,6 +111,10 @@ class AllergenViewModel : ViewModel() {
                 .addOnSuccessListener { documents ->
                     Log.d(ContentValues.TAG, "DELETE SUCCEESS")
                     itemsWithAllergen = makeItemListForAllergen(id, documents)
+                    _status.value = NetworkLoadingStatus.DONE
+                }
+                .addOnFailureListener {
+                    _status.value = NetworkLoadingStatus.ERROR
                 }
         }
         return itemsWithAllergen
@@ -130,7 +135,6 @@ class AllergenViewModel : ViewModel() {
     }
 
     fun completeDeleteAllergen(id: String, holder: RecyclerView.ViewHolder) {
-//        var deletedSuccess = false
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().deleteAllergen(id)
@@ -138,13 +142,11 @@ class AllergenViewModel : ViewModel() {
                     _status.value = NetworkLoadingStatus.DONE
                     Log.d(ContentValues.TAG, "DELETED SUCCEESS")
                     AllergenAdapter().hideDeletedRow(holder)
-//                    deletedSuccess = true
                 }
                 .addOnFailureListener {
                     _status.value = NetworkLoadingStatus.ERROR
                     Log.d(ContentValues.TAG, "DELETED FAILURE")
                 }
         }
-//        return  deletedSuccess
     }
 }
