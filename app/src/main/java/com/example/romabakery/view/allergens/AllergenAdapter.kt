@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.R
 import com.example.romabakery.databinding.AllAllergenListRowBinding
 import com.example.romabakery.model.Allergen
+import com.example.romabakery.model.ConfectioneryItem
+import com.example.romabakery.viewmodel.AllergenViewModel
 
 class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(AllergenAdapter) {
     class AllergenViewHolder(
@@ -60,10 +62,21 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
 
 
     public fun deleteAllergen(id: String) {
+        AllergenViewModel().deleteAllergen(id)
         Log.d(TAG, "DELETE ALLERGEN: " + id)
+        if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
+            Log.d(TAG, "CAN BE DELETED")
+            AllergenViewModel().completeDeleteAllergen(id)
+//            AllergenActivity().showAllergens()
+        } else {
+            AllergenViewModel().completeDeleteAllergen(id)
+            Log.d(TAG, "CANNOT BE DELETED")
+        }
     }
 
     public fun updateAllergen(allergen: Allergen) {
+        val updatedAllergen = Allergen(allergen.id, "newTitle", allergen.madeBy, allergen.editedBy, allergen.editedOn)
+        AllergenViewModel().updateAllergen(updatedAllergen)
         Log.d(TAG, "EDIT ALLERGEN: " + allergen.title)
     }
 }

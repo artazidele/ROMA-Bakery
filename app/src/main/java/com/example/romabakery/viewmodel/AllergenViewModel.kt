@@ -14,27 +14,28 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.launch
 
-
-//enum class AllergenDeleteStatus { LOADING, ERROR, DONE }
-
-class AllergenViewModel: ViewModel() {
+class AllergenViewModel : ViewModel() {
     private val _status = MutableLiveData<NetworkLoadingStatus>()
     val status: LiveData<NetworkLoadingStatus> = _status
-//    private val _deletestatus = MutableLiveData<AllergenDeleteStatus>()
-//    val deletestatus: LiveData<AllergenDeleteStatus> = _deletestatus
     private val _allergens = MutableLiveData<List<Allergen>>()
     val allergens: LiveData<List<Allergen>> = _allergens
+//    private val _items = MutableLiveData<List<ConfectioneryItem>>()
+//    val items: LiveData<List<ConfectioneryItem>> = _items
 
-    var deleteStatusDone = false
+
+//    var deleteStatusDone = false
 
     fun getAllergen(id: String) {
         viewModelScope.launch {
+            _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().getOneAllergen(id)
                 .addOnSuccessListener { document ->
                     val allergen = document.toObject<Allergen>()
+                    _status.value = NetworkLoadingStatus.DONE
                     Log.d(ContentValues.TAG, "GOT ONE ALLERGEN SUCCEESS")
                 }
                 .addOnFailureListener {
+                    _status.value = NetworkLoadingStatus.ERROR
                     Log.d(ContentValues.TAG, "GOT ONE ALLERGEN FAILURE")
                 }
         }
@@ -86,55 +87,58 @@ class AllergenViewModel: ViewModel() {
 
     fun updateAllergen(allergen: Allergen) {
         viewModelScope.launch {
+            _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().updateAllergen(allergen)
                 .addOnSuccessListener {
+                    _status.value = NetworkLoadingStatus.DONE
                     Log.d(ContentValues.TAG, "UPDATED ALLERGEN SUCCEESS")
                 }
                 .addOnFailureListener {
+                    _status.value = NetworkLoadingStatus.ERROR
                     Log.d(ContentValues.TAG, "UPDATED ALLERGEN FAILURE")
                 }
         }
     }
 
-    fun deleteAllergen(id: String) {
+    fun deleteAllergen(id: String): ArrayList<ConfectioneryItem> {
+        var itemsWithAllergen = ArrayList<ConfectioneryItem>()
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
-            val itemsWhereIsAllergen = checkIfAllergenCanBeDeleted(id)
-            if (itemsWhereIsAllergen == ArrayList<ConfectioneryItem>() && deleteStatusDone == true) {
-                Log.d(ContentValues.TAG, "CAN BE DELETED")
-                AllergenFirebase().deleteAllergen(id)
-                    .addOnSuccessListener {
-                        Log.d(ContentValues.TAG, "DELETED ALLERGEN SUCCEESS")
-                    }
-                    .addOnFailureListener {
-                        Log.d(ContentValues.TAG, "DELETED ALLERGEN FAILURE")
-                    }
-            } else {
-                Log.d(ContentValues.TAG, "CANNOT BE DELETED")
-            }
-
+            ConfectioneryItemFirebase().getAllItems()
+                .addOnSuccessListener { documents ->
+                    Log.d(ContentValues.TAG, "DELETE SUCCEESS")
+                    itemsWithAllergen = makeItemListForAllergen(id, documents)
+                }
         }
+        return itemsWithAllergen
     }
 
-    suspend fun checkIfAllergenCanBeDeleted(id: String): ArrayList<ConfectioneryItem> {
+    fun makeItemListForAllergen(id: String, documents: QuerySnapshot): ArrayList<ConfectioneryItem> {
         var itemList: ArrayList<ConfectioneryItem> = ArrayList()
-        ConfectioneryItemFirebase().getAllItems()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val oneItem = document.toObject<ConfectioneryItem>()
-                    for (allergen in oneItem.containsAllergens) {
-                        if (allergen == id) {
-                            itemList.add(oneItem)
-                            break
-                        }
-                    }
+        for (document in documents) {
+            val oneItem = document.toObject<ConfectioneryItem>()
+            for (allergen in oneItem.containsAllergens) {
+                if (allergen == id) {
+                    itemList.add(oneItem)
+                    break
                 }
-                _status.value = NetworkLoadingStatus.DONE
-                deleteStatusDone = true
             }
-            .addOnFailureListener {
-                _status.value = NetworkLoadingStatus.ERROR
-            }
+        }
         return itemList
+    }
+
+    fun completeDeleteAllergen(id: String) {
+        viewModelScope.launch {
+            _status.value = NetworkLoadingStatus.LOADING
+            AllergenFirebase().deleteAllergen(id)
+                .addOnSuccessListener {
+                    _status.value = NetworkLoadingStatus.DONE
+                    Log.d(ContentValues.TAG, "DELETED SUCCEESS")
+                }
+                .addOnFailureListener {
+                    _status.value = NetworkLoadingStatus.ERROR
+                    Log.d(ContentValues.TAG, "DELETED FAILURE")
+                }
+        }
     }
 }
