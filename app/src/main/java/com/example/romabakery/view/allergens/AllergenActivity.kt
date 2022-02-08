@@ -35,7 +35,8 @@ class AllergenActivity : AppCompatActivity() {
 
         binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        binding.allAllergenRecyclerView.adapter = AllergenAdapter()
+        val data = allergenViewModel.getAllAllergens()
+        binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)
         binding.allAllergenRecyclerView.visibility = View.VISIBLE
         if (NetworkViewModel().checkConnection(this) == true) {
             showAllergens() //allergenViewModel.getAllAllergens()
@@ -44,6 +45,10 @@ class AllergenActivity : AppCompatActivity() {
         }
 
 //        setHasOptionsMenu(true)
+    }
+
+    private fun itemRemoved(int: Int) {
+        binding.allAllergenRecyclerView.adapter?.notifyItemRemoved(int)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

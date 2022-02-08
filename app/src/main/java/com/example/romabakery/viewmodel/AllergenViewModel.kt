@@ -15,6 +15,7 @@ import com.example.romabakery.view.allergens.AllergenActivity
 import com.example.romabakery.view.allergens.AllergenAdapter
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AllergenViewModel : ViewModel() {
@@ -39,13 +40,19 @@ class AllergenViewModel : ViewModel() {
         }
     }
 
-    fun getAllAllergens() {
+    fun getAllAllergens(): ArrayList<Allergen> {
+        var allergenList: ArrayList<Allergen> = ArrayList()
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().getAllAllergens()
                 .addOnSuccessListener { documents ->
                     Log.d(ContentValues.TAG, documents.count().toString())
                     val allergenListToReturn: List<Allergen> = makeAllergenList(documents)
+                    for (document in allergenListToReturn) {
+//                        val allergen = document.toObject<Allergen>()
+                        allergenList.add(document)
+                    }
+//                    allergenList = allergenListToReturn
                     _allergens.value = allergenListToReturn
                     _status.value = NetworkLoadingStatus.DONE
                     Log.d(ContentValues.TAG, "GOT ALLERGENS SUCCEESS")
@@ -56,6 +63,7 @@ class AllergenViewModel : ViewModel() {
                     Log.d(ContentValues.TAG, "GOT ALLERGENS FAILURE")
                 }
         }
+        return allergenList
     }
 
     fun makeAllergenList(documents: QuerySnapshot): ArrayList<Allergen> {
@@ -89,7 +97,7 @@ class AllergenViewModel : ViewModel() {
             AllergenFirebase().updateAllergen(allergen)
                 .addOnSuccessListener {
                     _status.value = NetworkLoadingStatus.DONE
-                    AllergenAdapter().changeAllergenTitle(holder, allergen.title)
+//                    AllergenAdapter().changeAllergenTitle(holder, allergen.title)
                     Log.d(ContentValues.TAG, "UPDATED ALLERGEN SUCCEESS")
                 }
                 .addOnFailureListener {
@@ -116,7 +124,10 @@ class AllergenViewModel : ViewModel() {
         return itemsWithAllergen
     }
 
-    fun makeItemListForAllergen(id: String, documents: QuerySnapshot): ArrayList<ConfectioneryItem> {
+    fun makeItemListForAllergen(
+        id: String,
+        documents: QuerySnapshot
+    ): ArrayList<ConfectioneryItem> {
         var itemList: ArrayList<ConfectioneryItem> = ArrayList()
         for (document in documents) {
             val oneItem = document.toObject<ConfectioneryItem>()
@@ -130,19 +141,31 @@ class AllergenViewModel : ViewModel() {
         return itemList
     }
 
-    fun completeDeleteAllergen(id: String, holder: RecyclerView.ViewHolder) {
+    fun completeDeleteAllergen(id: String, holder: RecyclerView.ViewHolder, position: Int){
+
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
-            AllergenFirebase().deleteAllergen(id)
-                .addOnSuccessListener {
-                    _status.value = NetworkLoadingStatus.DONE
-                    Log.d(ContentValues.TAG, "DELETED SUCCEESS")
-                    AllergenAdapter().hideDeletedRow(holder)
-                }
-                .addOnFailureListener {
-                    _status.value = NetworkLoadingStatus.ERROR
-                    Log.d(ContentValues.TAG, "DELETED FAILURE")
-                }
+//            async {
+                AllergenFirebase().deleteAllergen(id)
+                    .addOnSuccessListener {
+                        _status.value = NetworkLoadingStatus.DONE
+                        Log.d(ContentValues.TAG, "DELETED SUCCEESS")
+
+//                        AllergenAdapter().notifyItemRemoved(position)
+//                        AllergenAdapter().notifyItemRangeChanged(position, AllergenAdapter().itemCount - 1)
+
+
+
+//                        holder.itemView.
+//                        AllergenAdapter().notifyDataSetChanged()
+                        Log.d(ContentValues.TAG, "NOTIFY SUCCEESS")
+//                    AllergenAdapter().hideDeletedRow(holder)
+                    }
+                    .addOnFailureListener {
+                        _status.value = NetworkLoadingStatus.ERROR
+                        Log.d(ContentValues.TAG, "DELETED FAILURE")
+                    }
+//            }.await()
         }
     }
 }

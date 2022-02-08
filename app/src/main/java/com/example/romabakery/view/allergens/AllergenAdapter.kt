@@ -17,7 +17,7 @@ import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.viewmodel.AllergenViewModel
 import com.example.romabakery.viewmodel.NetworkViewModel
 
-class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(AllergenAdapter) {
+class AllergenAdapter(private val data: ArrayList<Allergen>) : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(AllergenAdapter) {
     class AllergenViewHolder(
         private var binding: AllAllergenListRowBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -25,6 +25,9 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
             binding.allergen = item
             binding.executePendingBindings()
         }
+//        fun remove(item: Allergen) {
+//
+//        }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Allergen>() {
@@ -47,37 +50,66 @@ class AllergenAdapter : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder
         parent: ViewGroup,
         viewType: Int
     ): AllergenViewHolder {
+
         return AllergenViewHolder(
             AllAllergenListRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
+//    override fun onCurrentListChanged(
+//        previousList: MutableList<Allergen>,
+//        currentList: MutableList<Allergen>
+//    ) {
+//        super.onCurrentListChanged(previousList, currentList)
+//    }
+
+    public fun removeData(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount)
+    }
     override fun onBindViewHolder(holder: AllergenViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+
         holder.itemView.findViewById<Button>(R.id.delete_allergen_button).setOnClickListener {
-            deleteAllergen(item.id, holder)
+            if (deleteAllergen(item.id, holder) == true) {
+                // Pārjautā vai dzēst
+                AllergenViewModel().completeDeleteAllergen(item.id, holder, position)
+                data.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, itemCount-1)
+//                    notifyItemRemoved(position)
+//                    Log.d(TAG, "NOTIFY")
+
+
+            }
+
         }
         holder.itemView.findViewById<Button>(R.id.edit_allergen_button).setOnClickListener {
             updateAllergen(item, holder)
         }
     }
 
-    public fun deleteAllergen(id: String, holder: RecyclerView.ViewHolder) {
+    public fun deleteAllergen(id: String, holder: RecyclerView.ViewHolder): Boolean {
+        var canBeDeleted = false
         if (NetworkViewModel().checkConnection(holder.itemView.context) == true) {
             AllergenViewModel().deleteAllergen(id)
             Log.d(TAG, "DELETE ALLERGEN: " + id)
             if (AllergenViewModel().deleteAllergen(id) == ArrayList<ConfectioneryItem>()) {
                 Log.d(TAG, "CAN BE DELETED")
-                // Te velreiz parjauta
                 if (NetworkViewModel().checkConnection(holder.itemView.context) == true) {
-                    AllergenViewModel().completeDeleteAllergen(id, holder)
+//                    AllergenViewModel().completeDeleteAllergen(id, holder)
+                    canBeDeleted = true
                 }
             } else {
                 Log.d(TAG, "CANNOT BE DELETED")
             }
         }
+        return canBeDeleted
     }
+
+    override fun getItemCount() = data.size
 
     public fun hideDeletedRow(holder: RecyclerView.ViewHolder) {
         holder.itemView.findViewById<TextView>(R.id.deleted_allergen_title).visibility = View.VISIBLE
