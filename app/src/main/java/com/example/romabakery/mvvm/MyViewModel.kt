@@ -47,9 +47,11 @@ class MyViewModel {
                     allergenList.add(allergen)
                 }
                 onResult(allergenList)
+                _allergens.value = allergenList
             }
             .addOnFailureListener {
                 onResult(null)
+                _allergens.value = arrayListOf()
             }
     }
 
