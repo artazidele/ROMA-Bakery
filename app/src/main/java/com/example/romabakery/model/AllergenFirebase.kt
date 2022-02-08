@@ -1,5 +1,7 @@
 package com.example.romabakery.model
 
+import android.content.ContentValues
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,6 +13,33 @@ class AllergenFirebase {
     suspend fun getOneAllergen(id: String): Task<DocumentSnapshot> {
         return db.collection("Allergen")
             .document(id)
+            .get()
+    }
+
+    fun deleteAl(id: String): Task<Void> {
+        return db.collection("Allergens").document(id)
+            .delete()
+    }
+
+    fun deleteAller(id: String, onResult: (String) -> Unit) {
+        db.collection("Allergen").document(id)
+            .delete()
+            .addOnSuccessListener {
+                onResult("SUCCESS")
+            }
+            .addOnFailureListener {
+                onResult("FAILURE")
+            }
+    }
+
+    fun getOneAl(id: String): Task<DocumentSnapshot> {
+        return db.collection("Allergen")
+            .document(id)
+            .get()
+    }
+
+    fun getItems(): Task<QuerySnapshot> {
+        return db.collection("ConfectioneryItem")
             .get()
     }
 
