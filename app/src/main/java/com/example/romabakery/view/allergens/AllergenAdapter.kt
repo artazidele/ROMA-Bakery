@@ -18,7 +18,7 @@ import com.example.romabakery.viewmodel.AllergenViewModel
 import com.example.romabakery.viewmodel.NetworkViewModel
 import kotlinx.coroutines.*
 
-class AllergenAdapter() : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(DiffCallback) {
+class AllergenAdapter(private val data: ArrayList<Allergen>) : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(DiffCallback) {
 
 //class AllergenAdapter(private val data: ArrayList<Allergen>) : ListAdapter<Allergen, AllergenAdapter.AllergenViewHolder>(AllergenAdapter) {
     class AllergenViewHolder(
@@ -78,10 +78,19 @@ class AllergenAdapter() : ListAdapter<Allergen, AllergenAdapter.AllergenViewHold
                 Log.d(TAG, "Length = 0")
                 AllergenViewModel().isDeleted(item.id) {
                     if (it.equals("SUCCESS")) {
+                        Log.d(TAG, "PIRMS: " + getDataItemCount().toString())
                         Log.d(TAG, "TRUE")
+                        data.removeAt(position)
+                        Log.d(TAG, "PĒC: " + getDataItemCount().toString())
+//                        itemCount = getDataItemCount()
                         notifyItemRemoved(position)
-//                        notifyItemRangeChanged(position, itemCount)
-                        notifyItemRangeRemoved(position, 1)
+//                        notifyDataSetChanged()
+                        Log.d(TAG, "PĒC: " + getItemCount().toString())
+
+//                        notifyDataSetChanged()
+//                        notifyItemRemoved(position)
+//                        notifyItemRangeChanged(position, getDataItemCount()-1)
+//                        notifyItemRangeRemoved(position, 1)
 
                     } else {
                         Log.d(TAG, "FALSE")
@@ -103,6 +112,13 @@ class AllergenAdapter() : ListAdapter<Allergen, AllergenAdapter.AllergenViewHold
                 Log.d(TAG, "NULL")
             }
         }
+    }
+
+    private fun getDataItemCount(): Int = data.size
+
+    override fun getItemCount(): Int {
+        return data.size
+//        return super.getItemCount()
     }
 
     override fun onBindViewHolder(holder: AllergenViewHolder, position: Int) {

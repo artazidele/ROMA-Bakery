@@ -38,7 +38,7 @@ class AllergenActivity : AppCompatActivity() {
 
         if (NetworkViewModel().checkConnection(this) == true) {
             val data = allergenViewModel.getAllAllergens()
-            binding.allAllergenRecyclerView.adapter = AllergenAdapter()//(data)
+            binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)//()//(data)
             binding.allAllergenRecyclerView.visibility = View.VISIBLE
 
 
@@ -83,6 +83,14 @@ class AllergenActivity : AppCompatActivity() {
         val allergen3 = Allergen("89611", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
         if (NetworkViewModel().checkConnection(this) == true) {
             allergenViewModel.addAllergen(allergen3)
+        }
+        val allergen4 = Allergen("893334441", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
+        if (NetworkViewModel().checkConnection(this) == true) {
+            allergenViewModel.addAllergen(allergen4)
+        }
+        val allergen5 = Allergen("23231", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
+        if (NetworkViewModel().checkConnection(this) == true) {
+            allergenViewModel.addAllergen(allergen5)
         }
     }
 
