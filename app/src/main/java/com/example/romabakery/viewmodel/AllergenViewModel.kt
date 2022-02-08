@@ -76,11 +76,13 @@ class AllergenViewModel : ViewModel() {
     }
 
 
-    fun addAllergen(allergen: Allergen) {
+    fun addAllergen(allergen: Allergen): Boolean {
+        var isSuccessfull = false
         viewModelScope.launch {
             _status.value = NetworkLoadingStatus.LOADING
             AllergenFirebase().addAllergen(allergen)
                 .addOnSuccessListener {
+                    isSuccessfull = true
                     _status.value = NetworkLoadingStatus.DONE
                     Log.d(ContentValues.TAG, "ADDED ALLERGEN SUCCEESS")
                 }
@@ -89,6 +91,7 @@ class AllergenViewModel : ViewModel() {
                     Log.d(ContentValues.TAG, "ADDED ALLERGEN FAILURE")
                 }
         }
+        return isSuccessfull
     }
 
     fun updateAllergen(allergen: Allergen, holder: RecyclerView.ViewHolder) {

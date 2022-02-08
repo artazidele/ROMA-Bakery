@@ -65,7 +65,7 @@ class AllergenAdapter(private val data: ArrayList<Allergen>) : ListAdapter<Aller
 
     public fun removeData(position: Int) {
         data.removeAt(position)
-        notifyItemRemoved(position)
+        notifyItemRemoved(position+1)
         notifyItemRangeChanged(position, itemCount)
     }
     override fun onBindViewHolder(holder: AllergenViewHolder, position: Int) {
@@ -78,7 +78,7 @@ class AllergenAdapter(private val data: ArrayList<Allergen>) : ListAdapter<Aller
                 AllergenViewModel().completeDeleteAllergen(item.id, holder, position)
                 data.removeAt(position)
                 notifyItemRemoved(position)
-                notifyItemRangeChanged(position, itemCount-1)
+//                notifyItemRangeChanged(position, itemCount)
 //                    notifyItemRemoved(position)
 //                    Log.d(TAG, "NOTIFY")
 

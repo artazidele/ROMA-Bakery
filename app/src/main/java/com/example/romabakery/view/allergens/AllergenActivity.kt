@@ -35,11 +35,14 @@ class AllergenActivity : AppCompatActivity() {
 
         binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val data = allergenViewModel.getAllAllergens()
-        binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)
-        binding.allAllergenRecyclerView.visibility = View.VISIBLE
+
         if (NetworkViewModel().checkConnection(this) == true) {
-            showAllergens() //allergenViewModel.getAllAllergens()
+            val data = allergenViewModel.getAllAllergens()
+            binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)
+            binding.allAllergenRecyclerView.visibility = View.VISIBLE
+
+
+//            showAllergens() //allergenViewModel.getAllAllergens()
 //            allergenViewModel.getAllAllergens()
 //            binding.allAllergenRecyclerView.visibility = View.VISIBLE
         }
@@ -67,11 +70,11 @@ class AllergenActivity : AppCompatActivity() {
 
     public fun addNewAllergen() {
         Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
-        val allergen = Allergen("1297", "Ceturtais alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
+        val allergen = Allergen("1006", "Treš alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
         if (NetworkViewModel().checkConnection(this) == true) {
-            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
+//            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
             allergenViewModel.addAllergen(allergen)
-            showAllergens()
+//            showAllergens()
         }
     }
 
