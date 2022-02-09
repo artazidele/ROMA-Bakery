@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_marginLeft="4dp"
-            android:text="Alergēna nosaukums"
             android:gravity="center"
             android:textSize="20dp"
             android:fontFamily="sans-serif"

@@ -14,13 +14,13 @@ import com.example.romabakery.viewmodel.NetworkLoadingStatus
 
 //@BindingAdapter("myList")
 //fun bindMyRecyclerView(recyclerView: RecyclerView, data: List<Allergen>?) {
-////    val adapter = recyclerView.adapter as MyAdapter
-////    adapter.submitList(data)
+//    val adapter = recyclerView.adapter as MyAdapter
+//    adapter.submitList(data)
 //}
-@BindingAdapter("myTitle")
-fun bindMyTitle(textView: TextView, text: String?) {
-    textView.text = text
-}
+//@BindingAdapter("myTitle")
+//fun bindMyTitle(textView: TextView, text: String?) {
+//    textView.text = text
+//}
 
 
 @BindingAdapter("allergenList")
