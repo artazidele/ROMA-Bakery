@@ -6,8 +6,22 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.model.Allergen
+import com.example.romabakery.mvvm.MyAdapter
 import com.example.romabakery.view.allergens.AllergenAdapter
 import com.example.romabakery.viewmodel.NetworkLoadingStatus
+
+
+
+//@BindingAdapter("myList")
+//fun bindMyRecyclerView(recyclerView: RecyclerView, data: List<Allergen>?) {
+////    val adapter = recyclerView.adapter as MyAdapter
+////    adapter.submitList(data)
+//}
+@BindingAdapter("myTitle")
+fun bindMyTitle(textView: TextView, text: String?) {
+    textView.text = text
+}
+
 
 @BindingAdapter("allergenList")
 fun bindAllergenRecyclerView(recyclerView: RecyclerView, data: List<Allergen>?) {

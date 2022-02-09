@@ -28,24 +28,25 @@ class MyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setTitle("Alergēnu saraksts")
 
-//        binding.lifecycleOwner = this
-//        binding.viewModel = allergenViewModel
-//
-//        binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
-//
-//
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            allergenViewModel.getAllergens() {
-//                if (it?.isNotEmpty() == true) {
-//                    binding.allAllergenRecyclerView.adapter = MyAdapter(it!!)
-//                    binding.allAllergenRecyclerView.visibility = View.VISIBLE
-//                    Log.d(ContentValues.TAG, "NOT EMPTY")
-//                } else {
-//                    Log.d(ContentValues.TAG, "EMPTY")
-//                }
-//
-//            }
+        binding.lifecycleOwner = this
+        binding.viewModel = allergenViewModel
+
+        binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        if (NetworkViewModel().checkConnection(this) == true) {
+            allergenViewModel.getAllergens() {
+                if (it?.isNotEmpty() == true) {
+                    binding.allAllergenRecyclerView.adapter = MyAdapter(it!!)
+                    binding.allAllergenRecyclerView.visibility = View.VISIBLE
+                    Log.d(ContentValues.TAG, "NOT EMPTY")
+                } else {
+                    Log.d(ContentValues.TAG, "EMPTY")
+                }
+
+            }
 ////            val data = allergenViewModel.getAllergens()
 ////            binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)//()//(data)
 ////            binding.allAllergenRecyclerView.visibility = View.VISIBLE
@@ -54,9 +55,9 @@ class MyActivity : AppCompatActivity() {
 ////            showAllergens() //allergenViewModel.getAllAllergens()
 ////            allergenViewModel.getAllAllergens()
 ////            binding.allAllergenRecyclerView.visibility = View.VISIBLE
-//        }
+        }
 //
-////        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
     }
 
 //    private fun itemRemoved(int: Int) {

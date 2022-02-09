@@ -16,43 +16,43 @@
         android:padding="4dp"
         tools:context=".mvvm.MyActivity">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/all_allergen_recycler_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:padding="0dp"-->
-<!--            app:allergenList="@{viewModel.allergens}"-->
-<!--            app:allergenRecyclerViewStatus="@{viewModel.status}"-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_allergen_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/my_row" />
+<!--        app:allergenRecyclerViewStatus="@{viewModel.status}"-->
+<!--        app:myList="@{viewModel.allergens}"-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/status_text_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:visibility="invisible"-->
+<!--            app:allergenStatus="@{viewModel.status}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--            app:layout_constraintLeft_toLeftOf="parent"-->
 <!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:listitem="@layout/all_allergen_list_row" />-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/status_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="invisible"
-            app:allergenStatus="@{viewModel.status}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/status_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:padding="0dp"
-            android:text="R"
-            android:visibility="invisible"
-            app:allergenButtonStatus="@{viewModel.status}"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_text_view" />
+<!--        <Button-->
+<!--            android:id="@+id/status_button"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="0dp"-->
+<!--            android:text="R"-->
+<!--            android:visibility="invisible"-->
+<!--            app:allergenButtonStatus="@{viewModel.status}"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/status_text_view" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
