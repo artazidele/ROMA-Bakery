@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.R
 import com.example.romabakery.model.Allergen
+import com.example.romabakery.viewmodel.AllergenViewModel
 
 
 class MyAdapter(private val dataSet: ArrayList<Allergen>) :
@@ -38,16 +39,33 @@ class MyAdapter(private val dataSet: ArrayList<Allergen>) :
         viewHolder.textView.text = dataSet[position].title
         viewHolder.deleteButton.setOnClickListener {
             Log.d(TAG, "Delete button pressed")
-            Log.d(TAG, "Position: " + position.toString())
-            dataSet.removeAt(position)
-//            notifyItemRemoved(position)
-            notifyDataSetChanged()
-            Log.d(TAG, "Count: " + itemCount.toString())
-        }
-        viewHolder.editButton.setOnClickListener {
-            Log.d(TAG, "Edit button pressed")
+            MyViewModel().getAllergenItems(dataSet[position].id) { itemList ->
+                if (itemList?.isEmpty() == true) {
+                    Log.d(TAG, "CAN DELETE")
+                    MyViewModel().deleteOneAllergen(dataSet[position].id) { isDeleted ->
+                        if (isDeleted == true) {
+                            Log.d(TAG, "TRUE")
+                            Log.d(TAG, "Position: " + position.toString())
+                            dataSet.removeAt(position)
+                            notifyDataSetChanged()
+                            Log.d(TAG, "Count: " + itemCount.toString())
+                        } else {
+                            Log.d(TAG, "FALSE")
+                        }
+                    }
+                } else if (itemList?.isNotEmpty() == true) {
+                    Log.d(TAG, "CANNOT DELETE")
+                } else {
+                    Log.d(TAG, "NULL")
+                }
+
+
+            }
+            viewHolder.editButton.setOnClickListener {
+                Log.d(TAG, "Edit button pressed")
 //            dataSet[position].title// = "EDITED"
-            notifyItemChanged(position)
+                notifyItemChanged(position)
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.romabakery.mvvm
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.romabakery.model.Allergen
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
@@ -20,6 +22,14 @@ class MyFirebase {
         return db.collection("Allergen").document(id)
             .delete()
     }
+
+//    fun delAllergen(id: String, onResult: (DocumentSnapshot?) -> Unit) {
+//        db.collection("Allergen").document("abc")
+//            .get()
+//            .addOnSuccessListener { document ->
+//                onResult(document)
+//            }
+//    }
 
     fun getOneAlllergen(id: String): Task<DocumentSnapshot> {
         return db.collection("Allergen")

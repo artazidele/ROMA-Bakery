@@ -81,7 +81,7 @@ class MyActivity : AppCompatActivity() {
 
     public fun addNewAllergen() {
         Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
-        val allergen = Allergen("98989898", "9898 alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
+        val allergen = Allergen("12121212", "1212 alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
         if (NetworkViewModel().checkConnection(this) == true) {
 //            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
             allergenViewModel.addNewAllergen(allergen) { added ->

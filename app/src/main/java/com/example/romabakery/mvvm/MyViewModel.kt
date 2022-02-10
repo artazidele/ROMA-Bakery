@@ -1,6 +1,7 @@
 package com.example.romabakery.mvvm
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.example.romabakery.model.Allergen
 import com.example.romabakery.model.AllergenFirebase
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.viewmodel.NetworkLoadingStatus
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 
 class MyViewModel: ViewModel() {
@@ -32,8 +34,10 @@ class MyViewModel: ViewModel() {
         var itemListWithAllergen = ArrayList<ConfectioneryItem>()
         MyFirebase().getAllConfectioneryItems()
             .addOnSuccessListener { documents ->
+//                Log.d(TAG, "COUNT: " + documents.count().toString())
                 for (document in documents) {
                     val oneItem = document.toObject<ConfectioneryItem>()
+//                    itemListWithAllergen.add(oneItem)
                     for (allergen in oneItem.containsAllergens) {
                         if (allergen == id) {
                             itemListWithAllergen.add(oneItem)
@@ -48,6 +52,55 @@ class MyViewModel: ViewModel() {
             }
     }
 
+    fun deleteOneAllergen(id: String, onResult: (Boolean) -> Unit) {
+        MyFirebase().deleteAllergen(id)
+            .addOnSuccessListener {
+                onResult(true)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
+
+
+//        MyFirebase().delAllergen(id) {
+//            if (it == true) {
+//                onResult(true)
+//            } else {
+//                onResult(false)
+//            }
+//        }
+//        val db = FirebaseFirestore.getInstance()
+//        db.collection("cities").document("DC")
+//            .delete()
+//            .addOnSuccessListener {
+//                onResult(true)
+//                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+//            }
+//            .addOnFailureListener { e ->
+//            onResult(false)
+//                Log.w(TAG, "Error deleting document", e)
+//            }
+
+
+
+//        MyFirebase().deleteAllergen(id)
+//            .addOnCompleteListener {
+//                onResult(true)
+//            }
+//            .addOnCanceledListener {
+//                onResult(false)
+//            }
+//            .addOnSuccessListener {
+////                if ()
+//                onResult(true)
+//            }
+//            .addOnFailureListener {
+//                onResult(false)
+//            }
+//            .onSuccessTask {
+////                onResult(true)
+//            }
+    }
     fun getAllergens(onResult: (ArrayList<Allergen>?) -> Unit) {
         var allergenList = ArrayList<Allergen>()
         MyFirebase().getAllAllergens()
