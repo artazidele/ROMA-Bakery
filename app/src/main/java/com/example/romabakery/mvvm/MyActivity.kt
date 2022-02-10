@@ -73,6 +73,7 @@ class MyActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.add_new_allergen -> addNewAllergen()
+            R.id.get_one_allergen -> getOneAllergenExample("12121212")
 //            R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
 //            R.id.exit -> Toast.makeText(this,"Exit Selected",Toast.LENGTH_SHORT).show()
         }
@@ -83,7 +84,6 @@ class MyActivity : AppCompatActivity() {
         Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
         val allergen = Allergen("12121212", "1212 alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
         if (NetworkViewModel().checkConnection(this) == true) {
-//            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
             allergenViewModel.addNewAllergen(allergen) { added ->
                 if (added == true) {
                     refreshAllergenList()
@@ -91,27 +91,19 @@ class MyActivity : AppCompatActivity() {
 
                 }
             }
-//            showAllergens()
         }
-//        val allergen2 = Allergen("896", "gfgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            allergenViewModel.addAllergen(allergen2)
-//        }
-//        val allergen3 = Allergen("89611", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            allergenViewModel.addAllergen(allergen3)
-//        }
-//        val allergen4 = Allergen("893334441", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            allergenViewModel.addAllergen(allergen4)
-//        }
-//        val allergen5 = Allergen("23231", "ppppppgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            allergenViewModel.addAllergen(allergen5)
-//        }
     }
 
-//    public fun showAllergens() {
-//        allergenViewModel.getAllAllergens()
-//    }
+    public fun getOneAllergenExample(id: String) {
+        Log.d(TAG, "GET ALLERGEN PRESSED")
+        if (NetworkViewModel().checkConnection(this) == true) {
+            allergenViewModel.getOneAllergen(id) { allergen ->
+                if (allergen?.id != null) {
+                    Log.d(TAG, allergen.title)
+                } else {
+                    Log.d(TAG, "ERROR getting one allergen")
+                }
+            }
+        }
+    }
 }

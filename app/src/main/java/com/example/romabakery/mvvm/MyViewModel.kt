@@ -24,6 +24,17 @@ class MyViewModel : ViewModel() {
             }
     }
 
+    fun getOneAllergen(id: String, onResult: (Allergen?) -> Unit) {
+        MyFirebase().getAllergen(id)
+            .addOnSuccessListener { document ->
+                val allergen = document.toObject<Allergen>()
+                onResult(allergen)
+            }
+            .addOnFailureListener {
+                onResult(null)
+            }
+    }
+
     fun getAllergenItems(id: String, onResult: (ArrayList<ConfectioneryItem>?) -> Unit) {
         var itemListWithAllergen = ArrayList<ConfectioneryItem>()
         MyFirebase().getAllConfectioneryItems()

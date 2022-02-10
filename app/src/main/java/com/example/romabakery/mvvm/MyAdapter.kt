@@ -66,26 +66,19 @@ class MyAdapter(private val dataSet: ArrayList<Allergen>) :
         viewHolder.editButton.setOnClickListener {
             Log.d(TAG, "Edit button pressed")
             if (NetworkViewModel().checkConnection(viewHolder.itemView.context) == true) {
-
                 val editedAllergen = Allergen(dataSet[position].id, "Labots1234", dataSet[position].madeBy, dataSet[position].editedOn, dataSet[position].editedBy)
                 MyViewModel().updateOneAllergen(editedAllergen) { isEdited ->
                     if (isEdited == true) {
                         Log.d(TAG, "isEdited TRUE")
-//                        viewHolder.textView.text = "LABOTS"//editedAllergen.title
-//                        dataSet.removeAt(position)
-//                        dataSet.add(editedAllergen)
                         dataSet.set(position, editedAllergen)
                         notifyDataSetChanged()
                     } else {
                         Log.d(TAG, "isEdited FALSE")
                     }
                 }
-
             }
-//            dataSet[position].title// = "EDITED"
             notifyItemChanged(position)
         }
-
     }
 
     override fun getItemCount() = dataSet.size

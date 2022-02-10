@@ -23,7 +23,7 @@ class MyFirebase {
             .delete()
     }
 
-    fun getOneAlllergen(id: String): Task<DocumentSnapshot> {
+    fun getAllergen(id: String): Task<DocumentSnapshot> {
         return db.collection("Allergen")
             .document(id)
             .get()
