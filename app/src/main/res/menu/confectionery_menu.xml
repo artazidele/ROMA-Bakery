@@ -4,4 +4,6 @@
         android:title="Alergēni"/>
     <item android:id="@+id/add_new_allergen"
         android:title="Pievienot alergēnu"/>
+    <item android:id="@+id/get_one_allergen"
+        android:title="getOneAllergen()"/>
 </menu>

@@ -1,24 +1,18 @@
 package com.example.romabakery.mvvm
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.romabakery.model.Allergen
-import com.example.romabakery.model.AllergenFirebase
 import com.example.romabakery.model.ConfectioneryItem
 import com.example.romabakery.viewmodel.NetworkLoadingStatus
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 
-class MyViewModel: ViewModel() {
+class MyViewModel : ViewModel() {
     private val _status = MutableLiveData<NetworkLoadingStatus>()
     val status: LiveData<NetworkLoadingStatus> = _status
     private val _allergens = MutableLiveData<ArrayList<Allergen>>()
     val allergens: LiveData<ArrayList<Allergen>> = _allergens
-
 
     fun addNewAllergen(allergen: Allergen, onResult: (Boolean) -> Unit) {
         MyFirebase().addAllergen(allergen)
@@ -34,10 +28,8 @@ class MyViewModel: ViewModel() {
         var itemListWithAllergen = ArrayList<ConfectioneryItem>()
         MyFirebase().getAllConfectioneryItems()
             .addOnSuccessListener { documents ->
-//                Log.d(TAG, "COUNT: " + documents.count().toString())
                 for (document in documents) {
                     val oneItem = document.toObject<ConfectioneryItem>()
-//                    itemListWithAllergen.add(oneItem)
                     for (allergen in oneItem.containsAllergens) {
                         if (allergen == id) {
                             itemListWithAllergen.add(oneItem)
@@ -60,47 +52,18 @@ class MyViewModel: ViewModel() {
             .addOnFailureListener {
                 onResult(false)
             }
-
-
-//        MyFirebase().delAllergen(id) {
-//            if (it == true) {
-//                onResult(true)
-//            } else {
-//                onResult(false)
-//            }
-//        }
-//        val db = FirebaseFirestore.getInstance()
-//        db.collection("cities").document("DC")
-//            .delete()
-//            .addOnSuccessListener {
-//                onResult(true)
-//                Log.d(TAG, "DocumentSnapshot successfully deleted!")
-//            }
-//            .addOnFailureListener { e ->
-//            onResult(false)
-//                Log.w(TAG, "Error deleting document", e)
-//            }
-
-
-
-//        MyFirebase().deleteAllergen(id)
-//            .addOnCompleteListener {
-//                onResult(true)
-//            }
-//            .addOnCanceledListener {
-//                onResult(false)
-//            }
-//            .addOnSuccessListener {
-////                if ()
-//                onResult(true)
-//            }
-//            .addOnFailureListener {
-//                onResult(false)
-//            }
-//            .onSuccessTask {
-////                onResult(true)
-//            }
     }
+
+    fun updateOneAllergen(allergen: Allergen, onResult: (Boolean) -> Unit) {
+        MyFirebase().updateAllergen(allergen)
+            .addOnSuccessListener {
+                onResult(true)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
+    }
+
     fun getAllergens(onResult: (ArrayList<Allergen>?) -> Unit) {
         var allergenList = ArrayList<Allergen>()
         MyFirebase().getAllAllergens()
@@ -118,6 +81,4 @@ class MyViewModel: ViewModel() {
                 _allergens.value = arrayListOf()
             }
     }
-
-
 }

@@ -23,14 +23,6 @@ class MyFirebase {
             .delete()
     }
 
-//    fun delAllergen(id: String, onResult: (DocumentSnapshot?) -> Unit) {
-//        db.collection("Allergen").document("abc")
-//            .get()
-//            .addOnSuccessListener { document ->
-//                onResult(document)
-//            }
-//    }
-
     fun getOneAlllergen(id: String): Task<DocumentSnapshot> {
         return db.collection("Allergen")
             .document(id)
