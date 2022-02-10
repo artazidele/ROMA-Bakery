@@ -9,7 +9,7 @@ import com.google.firebase.firestore.QuerySnapshot
 class ItemDatabase {
     val db = FirebaseFirestore.getInstance()
 
-    fun getAllItems(): Task<QuerySnapshot> {
+    fun getItems(): Task<QuerySnapshot> {
         return db.collection("Item")
             .orderBy("title")
             .get()
