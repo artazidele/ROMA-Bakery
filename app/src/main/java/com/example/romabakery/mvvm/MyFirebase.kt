@@ -27,6 +27,11 @@ class MyFirebase {
             .get()
     }
 
+    fun addAllergen(allergen: Allergen): Task<Void> {
+        return db.collection("Allergen").document(allergen.id)
+            .set(allergen)
+    }
+
     fun updateAllergen(allergen: Allergen): Task<Void> {
         return db.collection("Allergen").document(allergen.id)
             .update(

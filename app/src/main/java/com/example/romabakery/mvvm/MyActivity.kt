@@ -1,6 +1,7 @@
 package com.example.romabakery.mvvm
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -45,15 +46,6 @@ class MyActivity : AppCompatActivity() {
 
         if (NetworkViewModel().checkConnection(this) == true) {
             refreshAllergenList()
-//            allergenViewModel.getAllergens() {
-//                if (it?.isNotEmpty() == true) {
-//                    refreshAllergenList(it)
-////                    binding.allAllergenRecyclerView.adapter = MyAdapter(it!!)
-////                    binding.allAllergenRecyclerView.visibility = View.VISIBLE
-//                } else {
-//                    Log.d(ContentValues.TAG, "EMPTY")
-//                }
-//            }
         }
     }
 
@@ -88,13 +80,19 @@ class MyActivity : AppCompatActivity() {
     }
 
     public fun addNewAllergen() {
-//        Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
-//        val allergen = Allergen("155556", "Opolokj alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
-//        if (NetworkViewModel().checkConnection(this) == true) {
-////            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
-//            allergenViewModel.addAllergen(allergen)
-////            showAllergens()
-//        }
+        Log.d(TAG, "ADD NEW ALLERGEN PRESSED")
+        val allergen = Allergen("98989898", "9898 alergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
+        if (NetworkViewModel().checkConnection(this) == true) {
+//            binding.allAllergenRecyclerView.visibility = View.INVISIBLE
+            allergenViewModel.addNewAllergen(allergen) { added ->
+                if (added == true) {
+                    refreshAllergenList()
+                } else {
+
+                }
+            }
+//            showAllergens()
+        }
 //        val allergen2 = Allergen("896", "gfgchalergēns Tikko", "madeBy", ArrayList<String>(), ArrayList<String>())
 //        if (NetworkViewModel().checkConnection(this) == true) {
 //            allergenViewModel.addAllergen(allergen2)
