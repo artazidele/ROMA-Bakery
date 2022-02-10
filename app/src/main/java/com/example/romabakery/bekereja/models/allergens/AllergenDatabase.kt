@@ -1,4 +1,4 @@
-package com.example.romabakery.mvvm
+package com.example.romabakery.bekereja.models.allergens
 
 import com.example.romabakery.model.Allergen
 import com.google.android.gms.tasks.Task
@@ -6,8 +6,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
-class MyFirebase {
-
+class AllergenDatabase {
     val db = FirebaseFirestore.getInstance()
 
     fun getAllAllergens(): Task<QuerySnapshot> {
@@ -43,11 +42,4 @@ class MyFirebase {
                 )
             )
     }
-
-    fun getAllConfectioneryItems(): Task<QuerySnapshot> {
-        return db.collection("ConfectioneryItem")
-            .orderBy("title")
-            .get()
-    }
-
 }
