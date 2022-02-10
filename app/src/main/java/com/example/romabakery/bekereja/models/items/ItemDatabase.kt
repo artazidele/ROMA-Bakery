@@ -9,43 +9,54 @@ import com.google.firebase.firestore.QuerySnapshot
 class ItemDatabase {
     val db = FirebaseFirestore.getInstance()
 
-    fun getAllAllergens(): Task<QuerySnapshot> {
-        return db.collection("Allergen")
+    fun getAllItems(): Task<QuerySnapshot> {
+        return db.collection("Item")
             .orderBy("title")
             .get()
     }
 
-    fun deleteAllergen(id: String): Task<Void> {
-        return db.collection("Allergen").document(id)
+    fun deleteItem(id: String): Task<Void> {
+        return db.collection("Item").document(id)
             .delete()
     }
 
-    fun getAllergen(id: String): Task<DocumentSnapshot> {
-        return db.collection("Allergen")
+    fun getItem(id: String): Task<DocumentSnapshot> {
+        return db.collection("Item")
             .document(id)
             .get()
     }
 
-    fun addAllergen(allergen: Allergen): Task<Void> {
-        return db.collection("Allergen").document(allergen.id)
-            .set(allergen)
+    fun addItem(item: ItemDataClass): Task<Void> {
+        return db.collection("Item").document(item.id)
+            .set(item)
     }
 
-    fun updateAllergen(allergen: Allergen): Task<Void> {
-        return db.collection("Allergen").document(allergen.id)
+    fun updateItem(item: ItemDataClass): Task<Void> {
+        return db.collection("Item").document(item.id)
             .update(
                 mapOf(
-                    "title" to allergen.title,
-                    "madeBy" to allergen.madeBy,
-                    "editedBy" to allergen.editedBy,
-                    "editedOn" to allergen.editedOn
+                    "title" to item.title,
+                    "bun" to item.bun,
+                    "cake" to item.cake,
+                    "cookies" to item.cookies,
+                    "maxADay" to item.maxADay,
+                    "eiro" to item.eiro,
+                    "centi" to item.centi,
+                    "withoutFlour" to item.withoutFlour,
+                    "withoutLactose" to item.withoutLactose,
+                    "forVegetarians" to item.withoutLactose,
+                    "forVegans" to item.forVegans,
+                    "canBeOrderedFrom" to item.canBeOrderedFrom,
+                    "canBeOrderedUntil" to item.canBeOrderedUntil,
+                    "ingredients" to item.ingredients,
+                    "description" to item.description,
+                    "weights" to item.weights,
+                    "editedBy" to item.editedBy,
+                    "editedOn" to item.editedOn,
+                    "notInProduction" to item.notInProduction,
+                    "notInProductionBy" to item.notInProductionBy,
+                    "containsAllergens" to item.containsAllergens
                 )
             )
-    }
-
-    fun getAllConfectioneryItems(): Task<QuerySnapshot> {
-        return db.collection("ConfectioneryItem")
-            .orderBy("title")
-            .get()
     }
 }
