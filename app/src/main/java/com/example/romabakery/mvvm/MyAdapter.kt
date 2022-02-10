@@ -46,6 +46,8 @@ class MyAdapter(private val dataSet: ArrayList<Allergen>) :
         }
         viewHolder.editButton.setOnClickListener {
             Log.d(TAG, "Edit button pressed")
+//            dataSet[position].title// = "EDITED"
+            notifyItemChanged(position)
         }
     }
 

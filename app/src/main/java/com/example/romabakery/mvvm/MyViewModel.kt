@@ -18,6 +18,28 @@ class MyViewModel: ViewModel() {
     val allergens: LiveData<ArrayList<Allergen>> = _allergens
 
 
+    private val _all = MutableLiveData<List<Allergen>>()
+    val all: LiveData<List<Allergen>> = _all//= allergens//.asLiveData()
+
+    fun getLiveAllergens(onResult: (LiveData<List<Allergen>>?) -> Unit) {
+        var allergenList = ArrayList<Allergen>()
+        MyFirebase().getAllAllergens()
+            .addOnSuccessListener { documents ->
+                _status.value = NetworkLoadingStatus.DONE
+                for (document in documents) {
+                    val allergen = document.toObject<Allergen>()
+                    allergenList.add(allergen)
+                }
+                _all.value = allergenList
+                onResult(all)
+//                _allergens.value = allergenList
+            }
+            .addOnFailureListener {
+                onResult(null)
+                _allergens.value = arrayListOf()
+            }
+    }
+
 
 
     fun getAllergenItems(id: String, onResult: (ArrayList<ConfectioneryItem>?) -> Unit) {

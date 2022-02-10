@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.databinding.ActivityMyBinding
 import com.example.romabakery.viewmodel.AllergenViewModel
@@ -35,8 +36,30 @@ class MyActivity : AppCompatActivity() {
 
         binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
 
+//        allergenViewModel.allergens.observe(this, Observer { words ->
+//            // Update the cached copy of the words in the adapter.
+//            words?.let { MySecondAdapter().submitList(it) }
+//        })
+
 
         if (NetworkViewModel().checkConnection(this) == true) {
+//            allergenViewModel.getLiveAllergens() { result ->
+//                if (result?.value != null) {
+//                    binding.allAllergenRecyclerView.adapter = MySecondAdapter()
+//                    binding.allAllergenRecyclerView.visibility = View.VISIBLE
+//                    Log.d(ContentValues.TAG, "NOT EMPTY")
+//                    allergenViewModel.allergens.observe(this, Observer { allergens ->
+//                        // Update the cached copy of the words in the adapter.
+//                        allergens?.let { MySecondAdapter().submitList(allergens) }
+//                        Log.d(ContentValues.TAG, allergens.size.toString())
+//
+//                    })
+//                }
+//
+//            }
+
+
+
             allergenViewModel.getAllergens() {
                 if (it?.isNotEmpty() == true) {
                     binding.allAllergenRecyclerView.adapter = MyAdapter(it!!)
@@ -45,8 +68,13 @@ class MyActivity : AppCompatActivity() {
                 } else {
                     Log.d(ContentValues.TAG, "EMPTY")
                 }
-
             }
+
+
+
+
+
+
 ////            val data = allergenViewModel.getAllergens()
 ////            binding.allAllergenRecyclerView.adapter = AllergenAdapter(data)//()//(data)
 ////            binding.allAllergenRecyclerView.visibility = View.VISIBLE
