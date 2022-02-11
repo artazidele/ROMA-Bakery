@@ -6,16 +6,11 @@ import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.models.allergens.AllergenDatabase
 import com.example.romabakery.bekereja.models.items.ItemDataClass
 import com.example.romabakery.bekereja.models.items.ItemDatabase
-import com.example.romabakery.model.Allergen
-import com.example.romabakery.model.ConfectioneryItem
-import com.example.romabakery.mvvm.MyFirebase
 import com.google.firebase.firestore.ktx.toObject
 
 class AllergenDataViewModel {
     private val _status = MutableLiveData<NetworkDataStatus>()
     val status: LiveData<NetworkDataStatus> = _status
-    private val _allergens = MutableLiveData<ArrayList<AllergenDataClass>>()
-    val allergens: LiveData<ArrayList<AllergenDataClass>> = _allergens
 
     fun addNewAllergen(allergen: AllergenDataClass, onResult: (Boolean) -> Unit) {
         _status.value = NetworkDataStatus.LOADING
@@ -102,12 +97,10 @@ class AllergenDataViewModel {
                     val allergen = document.toObject<AllergenDataClass>()
                     allergenList.add(allergen)
                 }
-                _allergens.value = allergenList
                 _status.value = NetworkDataStatus.DONE
                 onResult(allergenList)
             }
             .addOnFailureListener {
-                _allergens.value = arrayListOf()
                 _status.value = NetworkDataStatus.ERROR
                 onResult(null)
             }
