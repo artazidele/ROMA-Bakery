@@ -14,7 +14,6 @@ import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
 import com.example.romabakery.databinding.ActivityAllergenListBinding
-import com.example.romabakery.mvvm.MyAdapter
 import com.example.romabakery.viewmodel.NetworkViewModel
 
 class AllergenListActivity : AppCompatActivity() {

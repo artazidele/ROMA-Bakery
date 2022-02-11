@@ -12,9 +12,6 @@ import com.example.romabakery.R
 import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
-import com.example.romabakery.model.Allergen
-import com.example.romabakery.mvvm.MyViewModel
-import com.example.romabakery.viewmodel.NetworkViewModel
 
 class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
     RecyclerView.Adapter<AllergenDataAdapter.AllergenDataViewHolder>() {
