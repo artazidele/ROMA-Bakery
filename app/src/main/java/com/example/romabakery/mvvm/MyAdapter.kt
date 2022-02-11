@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.R
 import com.example.romabakery.model.Allergen
-import com.example.romabakery.viewmodel.AllergenViewModel
 import com.example.romabakery.viewmodel.NetworkViewModel
 
 

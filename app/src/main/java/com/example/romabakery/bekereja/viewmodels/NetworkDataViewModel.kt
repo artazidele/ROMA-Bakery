@@ -2,10 +2,11 @@ package com.example.romabakery.bekereja.viewmodels
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.lifecycle.ViewModel
 
 enum class NetworkDataStatus { LOADING, ERROR, DONE }
 
-class NetworkDataViewModel {
+class NetworkDataViewModel : ViewModel() {
     public fun checkConnection(context: Context): Boolean {
         var isConnection = false
         val connectionManager =

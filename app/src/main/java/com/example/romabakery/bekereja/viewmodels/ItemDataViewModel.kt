@@ -2,6 +2,7 @@ package com.example.romabakery.bekereja.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.models.allergens.AllergenDatabase
 import com.example.romabakery.bekereja.models.items.ItemDataClass
@@ -9,7 +10,7 @@ import com.example.romabakery.bekereja.models.items.ItemDatabase
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 
-class ItemDataViewModel {
+class ItemDataViewModel : ViewModel() {
     private val _status = MutableLiveData<NetworkDataStatus>()
     val status: LiveData<NetworkDataStatus> = _status
 
