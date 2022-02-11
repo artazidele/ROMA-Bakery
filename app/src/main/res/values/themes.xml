@@ -23,7 +23,7 @@
 
 
 
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/pink_900_dark</item>
 <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
 <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
 <!--        <item name="colorPrimary">@color/purple_500</item>-->

@@ -22,7 +22,7 @@ class ItemListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityItemListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle("Izstrādājumu saraksts")
+        setTitle("Izstrādājumi")
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -46,7 +46,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.confectionery_menu, menu)
+        menuInflater.inflate(R.menu.confectioner_item_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/double_icon_button_bg.xml" value="0.536" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_add_24.xml" value="0.175" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_button_bg.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_delete_40.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_edit_40.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_filter_24.xml" value="0.175" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_list_24.xml" value="0.175" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/icon_not_list_24.xml" value="0.175" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/drawable/row_bg.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/activity_allergen.xml" value="0.20018115942028986" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/activity_allergen_list.xml" value="0.11822916666666666" />
@@ -20,7 +24,10 @@
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/item_list_row.xml" value="0.1703125" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/my_row.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/layout/order_confectionery_item.xml" value="0.125" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/menu/confectioner_item_menu.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/menu/confectionery_allergen_menu.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/menu/confectionery_menu.xml" value="0.21770833333333334" />
+        <entry key="..\:/Users/Arta/Documents/KvalifikacijasDarbs/ROMABakery/app/src/main/res/menu/full_menu.xml" value="0.121875" />
       </map>
     </option>
   </component>

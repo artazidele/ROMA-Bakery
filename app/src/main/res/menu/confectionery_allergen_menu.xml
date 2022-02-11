@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/allergen"
+        android:title="Alergēni" >
+        <menu>
+            <item android:id="@+id/add_allergen"
+                android:title="Pievienot alergēnu" />
+            <item android:id="@+id/open"
+                android:title="Atvērt" />
+        </menu>
+    </item>
+</menu>
