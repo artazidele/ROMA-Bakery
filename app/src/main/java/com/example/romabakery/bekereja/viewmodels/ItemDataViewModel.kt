@@ -41,7 +41,11 @@ class ItemDataViewModel : ViewModel() {
             }
     }
 
-    fun getItemAllergens(item: ItemDataClass, id: String, onResult: (ArrayList<AllergenDataClass>?) -> Unit) {
+    fun getItemAllergens(
+        item: ItemDataClass,
+        id: String,
+        onResult: (ArrayList<AllergenDataClass>?) -> Unit
+    ) {
         _status.value = NetworkDataStatus.LOADING
         var itemAllergenList = ArrayList<AllergenDataClass>()
         AllergenDatabase().getAllergens()
@@ -141,19 +145,29 @@ class ItemDataViewModel : ViewModel() {
         var itemList: ArrayList<ItemDataClass> = ArrayList()
         for (document in documents) {
             val oneItem = document.toObject<ItemDataClass>()
-            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose && oneItem.notInProduction == notInProduction) {
-                var isInList = true
-                for (allergen in notContainsAllergens) {
-                    for (itemAllergen in oneItem.containsAllergens) {
-                        if (allergen == itemAllergen) {
-                            isInList = false
-                            break
-                        }
+            var isInList = true
+//            if (oneItem.bun == bun && oneItem.forVegans == forVegans && oneItem.cake == cake && oneItem.cookies == cookies && oneItem.forVegetarians == forVegetarians && oneItem.notInProduction == false && oneItem.withoutFlour == withoutFlour && oneItem.withoutLactose == withoutLactose && oneItem.notInProduction == notInProduction) {
+            // Kad nevar būt?
+            if ((oneItem.bun == true && bun == false)
+                || (oneItem.cookies == true && cookies == false)
+                || (oneItem.cake == true && cake == false)
+                || (oneItem.forVegans == false && forVegans == true)
+                || (oneItem.forVegetarians == false && forVegetarians == true)
+                || (oneItem.withoutFlour == false && withoutFlour == true)
+                || (oneItem.withoutLactose == false && withoutFlour == true)
+                  && oneItem.notInProduction == notInProduction) {
+                isInList = false
+            }
+            for (allergen in notContainsAllergens) {
+                for (itemAllergen in oneItem.containsAllergens) {
+                    if (allergen == itemAllergen) {
+                        isInList = false
+                        break
                     }
                 }
-                if (isInList == true) {
-                    itemList.add(oneItem)
-                }
+            }
+            if (isInList == true) {
+                itemList.add(oneItem)
             }
         }
         return itemList
