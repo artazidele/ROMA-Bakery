@@ -15,10 +15,10 @@
 <!--                android:title="Izstrādājumi, kas šobrīd netiek piedāvāti" />-->
 <!--        </menu>-->
 <!--    </item>-->
-    <item android:id="@+id/all"
-        android:icon="@drawable/ic_baseline_menu_24"
-        android:title="Visi izstrādājumi"
-        app:showAsAction="always"/>
+<!--    <item android:id="@+id/all"-->
+<!--        android:icon="@drawable/ic_baseline_menu_24"-->
+<!--        android:title="Visi izstrādājumi"-->
+<!--        app:showAsAction="always"/>-->
     <item android:id="@+id/filter"
         android:icon="@drawable/icon_filter_24"
         android:title="Atlasīt izstrādājumus"
@@ -27,6 +27,8 @@
         android:icon="@drawable/icon_add_24"
         android:title="Pievienot izstrādājumu"
         app:showAsAction="always"/>
+    <item android:id="@+id/main"
+        android:title="Sākums"/>
     <item android:id="@+id/allergens"
         android:title="Alergēni"/>
     <item android:id="@+id/drinks"

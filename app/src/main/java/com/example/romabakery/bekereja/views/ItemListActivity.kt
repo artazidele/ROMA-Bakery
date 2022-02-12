@@ -1,6 +1,7 @@
 package com.example.romabakery.bekereja.views
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.R
+import com.example.romabakery.bekereja.Navigation
 import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.viewmodels.ItemDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
@@ -52,6 +54,9 @@ class ItemListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.allergens -> Navigation().fromTo(this, AllergenListActivity())
+            R.id.add -> addNewItem()
+            R.id.filter -> filterItems()
 //            R.id.add_new_allergen -> addNewAllergen()
 //            R.id.get_one_allergen -> getOneAllergenExample("12121212")
 //            R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
@@ -59,6 +64,16 @@ class ItemListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun addNewItem() {
+        Log.d(TAG, "Add new item pressed.")
+    }
+
+    private fun filterItems() {
+        Log.d(TAG, "Filter items pressed.")
+    }
+
+
 
 //    public fun addNewAllergen() {
 //        Log.d(ContentValues.TAG, "ADD NEW ALLERGEN PRESSED")

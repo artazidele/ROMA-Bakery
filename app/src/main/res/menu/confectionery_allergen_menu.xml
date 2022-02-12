@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/allergen"
-        android:title="Alergēni" >
-        <menu>
-            <item android:id="@+id/add_allergen"
-                android:title="Pievienot alergēnu" />
-            <item android:id="@+id/open"
-                android:title="Atvērt" />
-        </menu>
-    </item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/add"
+        android:icon="@drawable/icon_add_24"
+        android:title="Pievienot alergēnu"
+        app:showAsAction="always"/>
+    <item android:id="@+id/main"
+        android:title="Sākums"/>
+    <item android:id="@+id/items"
+        android:title="Izstrādājumi"/>
+    <item android:id="@+id/drinks"
+        android:title="Dzērieni"/>
+    <item android:id="@+id/orders"
+        android:title="Pasūtījumi"/>
+    <item android:id="@+id/profile"
+        android:title="Profils"/>
+    <item android:id="@+id/exit"
+        android:title="Iziet"/>
 </menu>
