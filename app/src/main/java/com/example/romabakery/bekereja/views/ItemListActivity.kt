@@ -55,7 +55,7 @@ class ItemListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.allergens -> Navigation().fromTo(this, AllergenListActivity())
-            R.id.add -> addNewItem()
+            R.id.add -> Navigation().fromTo(this, AddItemActivity())//addNewItem()
             R.id.filter -> filterItems()
 //            R.id.add_new_allergen -> addNewAllergen()
 //            R.id.get_one_allergen -> getOneAllergenExample("12121212")

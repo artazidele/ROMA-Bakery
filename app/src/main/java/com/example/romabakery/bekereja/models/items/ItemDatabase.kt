@@ -10,7 +10,7 @@ class ItemDatabase {
     val db = FirebaseFirestore.getInstance()
 
     fun getItems(): Task<QuerySnapshot> {
-        return db.collection("ConfectioneryItem")//return db.collection("Item") //return db.collection("ConfectioneryItem")
+        return db.collection("Item") //return db.collection("Item") //return db.collection("ConfectioneryItem")
             .orderBy("title")
             .get()
     }

@@ -15,8 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ROMABakery">
         <activity
+            android:name=".bekereja.views.AddItemActivity"
+            android:exported="true"
+            android:parentActivityName=".bekereja.views.ItemListActivity"/>
+        <activity
             android:name=".bekereja.views.ItemListActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,11 +30,13 @@
         <activity
             android:name=".bekereja.views.AllergenListActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".mvvm.MyActivity"
