@@ -18,6 +18,8 @@ data class ItemDataClass(
     val ingredients: String = "",
     val description: String = "",
     val weights: ArrayList<Int> = ArrayList(),
+    val weightEiro: ArrayList<Int> = ArrayList(),
+    val weightCenti: ArrayList<Int> = ArrayList(),
     val madeBy: String = "",
     val editedBy: ArrayList<String> = ArrayList(),
     val editedOn: ArrayList<String> = ArrayList(),

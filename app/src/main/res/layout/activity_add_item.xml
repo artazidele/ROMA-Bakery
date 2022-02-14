@@ -8,6 +8,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="24dp"
         tools:context=".bekereja.views.AddItemActivity">
 
         <TextView
@@ -25,11 +27,19 @@
             app:layout_constraintTop_toBottomOf="@id/title_tv" />
 
         <TextView
+            android:id="@+id/first"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/title_et" />
+
+        <TextView
             android:id="@+id/type_tv"
             style="@style/Add_Item_Text_View_Style"
             android:text="Izstrādājuma veids: "
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_et" />
+            app:layout_constraintTop_toBottomOf="@id/first" />
 
         <RadioGroup
             android:id="@+id/type_rg"
@@ -55,12 +65,21 @@
                 android:text="cepumi" />
         </RadioGroup>
 
+
+        <TextView
+            android:id="@+id/second"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/type_rg" />
+
         <TextView
             android:id="@+id/description_tv"
             style="@style/Add_Item_Text_View_Style"
             android:text="Apraksts: "
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/type_rg" />
+            app:layout_constraintTop_toBottomOf="@id/second" />
 
         <EditText
             android:id="@+id/description_et"
@@ -70,11 +89,19 @@
             app:layout_constraintTop_toBottomOf="@id/description_tv" />
 
         <TextView
+            android:id="@+id/third"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/description_et" />
+
+        <TextView
             android:id="@+id/ingredients_tv"
             style="@style/Add_Item_Text_View_Style"
             android:text="Sastāvdaļas: "
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description_et" />
+            app:layout_constraintTop_toBottomOf="@id/third" />
 
         <EditText
             android:id="@+id/ingredients_et"
@@ -83,11 +110,19 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ingredients_tv" />
 
+        <TextView
+            android:id="@+id/fourth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_et" />
+
         <CheckBox
             style="@style/Add_Item_Check_Box_Style"
             android:text="Nesatur laktozi"
             android:id="@+id/with_out_lactose"
-            app:layout_constraintTop_toBottomOf="@id/ingredients_et"
+            app:layout_constraintTop_toBottomOf="@id/fourth"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <CheckBox
@@ -112,11 +147,19 @@
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
+            android:id="@+id/fifth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/for_vegans" />
+
+        <TextView
             android:id="@+id/allergen_tv"
             style="@style/Add_Item_Text_View_Style"
             android:text="Alergēni: "
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/for_vegans" />
+            app:layout_constraintTop_toBottomOf="@id/fifth" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/all_allergen_recycler_view"
@@ -129,6 +172,179 @@
             app:layout_constraintTop_toBottomOf="@id/allergen_tv"
             tools:listitem="@layout/add_item_allergen_row" />
 
+        <TextView
+            android:id="@+id/sixth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/all_allergen_recycler_view" />
+
+        <TextView
+            android:id="@+id/from_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Varēs pasūtīt no: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sixth" />
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/from_cv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_tv"/>
+
+        <TextView
+            android:id="@+id/seventh"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/from_cv" />
+
+        <TextView
+            android:id="@+id/to_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Varēs pasūtīt līdz: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seventh" />
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/to_cv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_tv"/>
+
+        <TextView
+            android:id="@+id/eighth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/to_cv" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/icon_button_bg"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/item_iv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eighth"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            style="@style/Button_Style"
+            android:text="Izvēlēties attēlu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_iv"
+            android:id="@+id/image_button"/>
+
+        <TextView
+            android:id="@+id/nineth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/image_button" />
+
+        <TextView
+            android:id="@+id/max_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Paredzētais daudzums: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nineth" />
+
+        <EditText
+            android:id="@+id/max_et"
+            android:text="  g/dienā"
+            android:textAlignment="viewEnd"
+            style="@style/Add_Item_Edit_Text_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/max_tv" />
+
+        <TextView
+            android:id="@+id/tenth"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/max_et" />
+
+        <TextView
+            android:id="@+id/cost_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Cena: "
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tenth" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/cost_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cost_tv">
+            <EditText
+                android:id="@+id/centi_et"
+                android:text="  centi"
+                android:layout_marginRight="0dp"
+                android:textAlignment="viewEnd"
+                android:layout_weight="1"
+                style="@style/Add_Item_Edit_Text_Style" />
+            <EditText
+                android:id="@+id/eiro_et"
+                android:text="  eiro/100g"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                style="@style/Add_Item_Edit_Text_Style" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cost_for_cake_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Cena tortēm: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tenth" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cake_weight_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cost_for_cake_tv"
+            tools:listitem="@layout/cake_weight_row" />
+
+        <TextView
+            android:id="@+id/eleventh"
+            style="@style/Star_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/cake_weight_rv" />
+
+        <Button
+            android:layout_width="wrap_content"
+            style="@style/Button_Style"
+            android:text="Pievienot izstrādājumu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eleventh"
+            android:id="@+id/add_item_button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
