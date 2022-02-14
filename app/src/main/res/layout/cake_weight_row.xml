@@ -5,40 +5,124 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@drawable/row_bg"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:background="@drawable/row_bg"
         android:padding="0dp">
 
+
         <TextView
-            android:id="@+id/allergen_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Row_Text_Style"
-            android:text="Text for allergen title"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/weight_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Tortes svars: "
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/delete_allergen_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            style="@style/Button_Style"
-            android:drawableLeft="@drawable/icon_delete_32"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <EditText
+            android:id="@+id/weight_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:text="  g"
+            android:textAlignment="viewEnd"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/weight_tv" />
+
+        <TextView
+            android:id="@+id/max_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Paredzētais daudzums: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weight_et" />
+
+        <EditText
+            android:id="@+id/max_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:text="  tortes dienā"
+            android:textAlignment="viewEnd"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/max_tv" />
+
+        <TextView
+            android:id="@+id/cost_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Cena: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/max_et" />
+
+        <LinearLayout
+            android:id="@+id/cost_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cost_tv">
+
+            <EditText
+                android:id="@+id/centi_et"
+                style="@style/Add_Item_Edit_Text_Style"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:text="  centi"
+                android:textAlignment="viewEnd" />
+
+            <EditText
+                android:id="@+id/eiro_et"
+                style="@style/Add_Item_Edit_Text_Style"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="1"
+                android:text="  eiro/gab"
+                android:textAlignment="viewEnd" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/edit_allergen_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/add_weight"
             style="@style/Button_Style"
-            android:drawableLeft="@drawable/icon_edit_32"
+            android:layout_width="48dp"
+            android:drawableLeft="@drawable/icon_remove_32"
+            app:layout_constraintTop_toBottomOf="@id/cost_et"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Button
+            android:id="@+id/remove_weight"
+            style="@style/Button_Style"
+            android:layout_width="48dp"
+            android:drawableLeft="@drawable/ic0n_add_32"
+            app:layout_constraintTop_toBottomOf="@id/cost_et"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/delete_allergen_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toRightOf="@id/add_weight" />
+
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/allergen_title"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            style="@style/Row_Text_Style"-->
+        <!--            android:text="Text for allergen title"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/delete_allergen_button"-->
+        <!--            android:layout_width="48dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            style="@style/Button_Style"-->
+        <!--            android:drawableLeft="@drawable/icon_delete_32"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/edit_allergen_button"-->
+        <!--            android:layout_width="48dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            style="@style/Button_Style"-->
+        <!--            android:drawableLeft="@drawable/icon_edit_32"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintRight_toLeftOf="@id/delete_allergen_button"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
