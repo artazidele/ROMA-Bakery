@@ -1,22 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".bekereja.views.AddItemActivity">
-    <TextView
-        android:id="@+id/title_tv"
-        android:text="Nosaukums: "
-        style="@style/Add_Item_Text_View_Style"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-    <EditText
-        style="@style/Add_Item_Edit_Text_Style"
-        app:layout_constraintTop_toBottomOf="@id/title_tv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/title_et"/>
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".bekereja.views.AddItemActivity">
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Nosaukums: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/title_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_tv" />
+
+        <TextView
+            android:id="@+id/type_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Izstrādājuma veids: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_et" />
+
+        <RadioGroup
+            android:id="@+id/type_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_tv">
+
+            <RadioButton
+                android:id="@+id/bun_rb"
+                style="@style/Add_Item_Radio_Button_Style"
+                android:text="smalkmaizīte/kūciņa" />
+
+            <RadioButton
+                android:id="@+id/cake_rb"
+                style="@style/Add_Item_Radio_Button_Style"
+                android:text="torte" />
+
+            <RadioButton
+                android:id="@+id/cookies_rb"
+                style="@style/Add_Item_Radio_Button_Style"
+                android:text="cepumi" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/description_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Apraksts: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_rg" />
+
+        <EditText
+            android:id="@+id/description_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_tv" />
+
+        <TextView
+            android:id="@+id/ingredients_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Sastāvdaļas: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_et" />
+
+        <EditText
+            android:id="@+id/ingredients_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_tv" />
+
+        <CheckBox
+            style="@style/Add_Item_Check_Box_Style"
+            android:text="Nesatur laktozi"
+            android:id="@+id/with_out_lactose"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_et"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <CheckBox
+            style="@style/Add_Item_Check_Box_Style"
+            android:text="Nesatur miltus"
+            android:id="@+id/with_out_flour"
+            app:layout_constraintTop_toBottomOf="@id/with_out_lactose"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <CheckBox
+            style="@style/Add_Item_Check_Box_Style"
+            android:text="Veģetāriešiem"
+            android:id="@+id/for_vegetarians"
+            app:layout_constraintTop_toBottomOf="@id/with_out_flour"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <CheckBox
+            style="@style/Add_Item_Check_Box_Style"
+            android:text="Vegāniem"
+            android:id="@+id/for_vegans"
+            app:layout_constraintTop_toBottomOf="@id/for_vegetarians"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/allergen_tv"
+            style="@style/Add_Item_Text_View_Style"
+            android:text="Alergēni: "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/for_vegans" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_allergen_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/allergen_tv"
+            tools:listitem="@layout/add_item_allergen_row" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
