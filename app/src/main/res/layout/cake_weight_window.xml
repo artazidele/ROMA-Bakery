@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/row_bg"
+    android:padding="0dp">
+
+
+    <Button
+        android:id="@+id/close_button"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:drawableLeft="@drawable/ic_baseline_close_24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weight_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Tortes svars: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/close_button" />
+
+    <EditText
+        android:id="@+id/weight_et"
+        style="@style/Add_Item_Edit_Text_Style"
+        android:text="  g"
+        android:textAlignment="viewEnd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weight_tv" />
+
+    <TextView
+        android:id="@+id/max_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Paredzētais daudzums: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weight_et" />
+
+    <EditText
+        android:id="@+id/max_et"
+        style="@style/Add_Item_Edit_Text_Style"
+        android:text="  tortes dienā"
+        android:textAlignment="viewEnd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/max_tv" />
+
+    <TextView
+        android:id="@+id/cost_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Cena: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/max_et" />
+
+    <LinearLayout
+        android:id="@+id/cost_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cost_tv">
+
+        <EditText
+            android:id="@+id/centi_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:text="  centi"
+            android:textAlignment="viewEnd" />
+
+        <EditText
+            android:id="@+id/eiro_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_marginLeft="0dp"
+            android:layout_weight="1"
+            android:text="  eiro/gab"
+            android:textAlignment="viewEnd" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_cake_button"
+        style="@style/Button_Style"
+        android:layout_width="wrap_content"
+        android:text="Pievienot torti"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cost_et" />
+</androidx.constraintlayout.widget.ConstraintLayout>

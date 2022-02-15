@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/row_bg"
+    android:padding="0dp">
+
+
+    <TextView
+        android:id="@+id/weight_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Vienas tortes svars: 1000g"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/max_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Paredzētais daudzums: 10 tortes/dienā"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weight_tv" />
+
+    <TextView
+        android:id="@+id/cost_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Cena: 12.50eiro/gab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/max_tv" />
+
+    <Button
+        android:id="@+id/add_cake"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:visibility="gone"
+        android:drawableLeft="@drawable/ic0n_add_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/delete_weight_button"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:drawableLeft="@drawable/icon_delete_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/edit_weight_button"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:drawableLeft="@drawable/icon_edit_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/delete_weight_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -256,6 +256,7 @@
 
         <TextView
             android:id="@+id/max_tv"
+            android:visibility="gone"
             style="@style/Add_Item_Text_View_Style"
             android:text="Paredzētais daudzums: "
             app:layout_constraintLeft_toLeftOf="parent"
@@ -265,6 +266,7 @@
             android:id="@+id/max_et"
             android:text="  g/dienā"
             android:textAlignment="viewEnd"
+            android:visibility="gone"
             style="@style/Add_Item_Edit_Text_Style"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -273,6 +275,7 @@
         <TextView
             android:id="@+id/tenth"
             style="@style/Star_Style"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:textStyle="bold"
@@ -327,7 +330,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cost_for_cake_tv"
-            tools:listitem="@layout/cake_weight_row" />
+            tools:listitem="@layout/weight_row" />
 
         <TextView
             android:id="@+id/eleventh"
