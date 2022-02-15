@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.R
 import com.example.romabakery.bekereja.Navigation
+import com.example.romabakery.bekereja.models.CakeWeight
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.ItemDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
@@ -17,9 +18,8 @@ import com.example.romabakery.databinding.ActivityAddItemBinding
 import com.example.romabakery.databinding.ActivityItemListBinding
 
 var added_allergens: ArrayList<String> = ArrayList()
+var cake_weights: ArrayList<CakeWeight> = ArrayList()
 class AddItemActivity : AppCompatActivity() {
-//    private var addedAllergens: ArrayList<String> = ArrayList()
-    private val viewModel: ItemDataViewModel by viewModels()
     private val allergenViewModel: AllergenDataViewModel by viewModels()
     private lateinit var binding: ActivityAddItemBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +32,8 @@ class AddItemActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         binding.viewModel = allergenViewModel
+
+        binding.cakeWeightRv.adapter = AddItemWeightAdapter(cake_weights)
 
         binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
         if (NetworkDataViewModel().checkConnection(this) == true) {
@@ -55,6 +57,14 @@ class AddItemActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "EMPTY")
             }
         }
+    }
+
+    public fun addWeight(weight: CakeWeight) {
+        cake_weights.add(weight)
+    }
+
+    public fun removeWeight(weight: CakeWeight) {
+        cake_weights.remove(weight)
     }
 
     public fun addAllergen(allergenId: String) {

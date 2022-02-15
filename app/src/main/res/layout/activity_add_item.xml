@@ -343,13 +343,22 @@
                 app:layout_constraintTop_toBottomOf="@id/cost_for_cake_tv"
                 tools:listitem="@layout/weight_row" />
 
+            <Button
+                android:id="@+id/add_other_weight"
+                style="@style/Button_Style"
+                android:layout_width="wrap_content"
+                android:text="Pievienot citu tortes svaru"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cake_weight_rv" />
+
             <TextView
                 android:id="@+id/eleventh"
                 style="@style/Star_Style"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cake_weight_rv" />
+                app:layout_constraintTop_toBottomOf="@id/add_other_weight" />
 
             <Button
                 android:id="@+id/add_item_button"
