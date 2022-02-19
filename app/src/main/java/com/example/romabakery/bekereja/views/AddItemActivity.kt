@@ -4,18 +4,22 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.R
 import com.example.romabakery.bekereja.Navigation
-import com.example.romabakery.bekereja.models.CakeWeight
+import com.example.romabakery.bekereja.models.items.CakeWeight
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
-import com.example.romabakery.bekereja.viewmodels.ItemDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
 import com.example.romabakery.databinding.ActivityAddItemBinding
-import com.example.romabakery.databinding.ActivityItemListBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 var added_allergens: ArrayList<String> = ArrayList()
 var cake_weights: ArrayList<CakeWeight> = ArrayList()
@@ -33,7 +37,11 @@ class AddItemActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = allergenViewModel
 
-        binding.cakeWeightRv.adapter = AddItemWeightAdapter(cake_weights)
+        binding.cakeWeightRv.layoutManager = LinearLayoutManager(this)
+        showCakeWeights()
+        binding.addOtherWeight.setOnClickListener {
+            addOtherWeight()
+        }
 
         binding.allAllergenRecyclerView.layoutManager = LinearLayoutManager(this)
         if (NetworkDataViewModel().checkConnection(this) == true) {
@@ -56,6 +64,33 @@ class AddItemActivity : AppCompatActivity() {
             } else {
                 Log.d(ContentValues.TAG, "EMPTY")
             }
+        }
+    }
+
+    private fun showCakeWeights() {
+        binding.cakeWeightRv.adapter = AddItemWeightAdapter(cake_weights)
+    }
+
+    private fun addOtherWeight() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.cake_weight_window, null)
+        val builder = AlertDialog.Builder(this)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.add_cake_button).setOnClickListener {
+            val weight = dialogView.findViewById<EditText>(R.id.weight_et).text.toString().toInt()
+            val max = dialogView.findViewById<EditText>(R.id.max_et).text.toString().toInt()
+            val centi = dialogView.findViewById<EditText>(R.id.eiro_et).text.toString().toInt()
+            val eiro = dialogView.findViewById<EditText>(R.id.centi_et).text.toString().toInt()
+            val uuid = UUID.randomUUID()
+            val weightId = uuid.toString()
+            val cakeId = ""
+            val newWeight = CakeWeight(weightId, cakeId, weight, eiro, centi, max)
+            addWeight(newWeight)
+            showCakeWeights()
+            alertDialog.dismiss()
         }
     }
 

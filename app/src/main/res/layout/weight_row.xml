@@ -31,17 +31,6 @@
         app:layout_constraintTop_toBottomOf="@id/max_tv" />
 
     <Button
-        android:id="@+id/add_cake"
-        style="@style/Button_Style"
-        android:layout_width="48dp"
-        android:visibility="gone"
-        android:drawableLeft="@drawable/ic0n_add_32"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
         android:id="@+id/delete_weight_button"
         style="@style/Button_Style"
         android:layout_width="48dp"

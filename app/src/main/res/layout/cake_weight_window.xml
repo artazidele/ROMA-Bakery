@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -24,43 +23,78 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/close_button" />
 
-    <EditText
-        android:id="@+id/weight_et"
-        style="@style/Add_Item_Edit_Text_Style"
-        android:text="  g"
-        android:textAlignment="viewEnd"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@id/weight_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weight_tv" />
+        android:id="@+id/weight_linear">
+        <EditText
+            android:id="@+id/weight_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/weight_last_tv"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_width="wrap_content"
+            android:text="g"
+            android:textAlignment="viewEnd" />
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/max_tv"
         style="@style/Add_Item_Text_View_Style"
         android:text="Paredzētais daudzums: "
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weight_et" />
+        app:layout_constraintTop_toBottomOf="@id/weight_linear" />
 
-    <EditText
-        android:id="@+id/max_et"
-        style="@style/Add_Item_Edit_Text_Style"
-        android:text="  tortes dienā"
-        android:textAlignment="viewEnd"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@id/max_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/max_tv" />
+        android:id="@+id/amount_linear">
+        <EditText
+            android:id="@+id/max_et"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_marginRight="0dp"
+            android:inputType="number"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/max_last_tv"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_width="wrap_content"
+            android:text="tortes dienā"
+            android:textAlignment="viewEnd" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/cost_tv"
         style="@style/Add_Item_Text_View_Style"
         android:text="Cena: "
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/max_et" />
+        app:layout_constraintTop_toBottomOf="@id/amount_linear" />
 
     <LinearLayout
         android:id="@+id/cost_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginRight="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cost_tv">
@@ -70,15 +104,30 @@
             style="@style/Add_Item_Edit_Text_Style"
             android:layout_marginRight="0dp"
             android:layout_weight="1"
-            android:text="  centi"
+            android:inputType="number"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/centi_last_tv"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_width="wrap_content"
+            android:text="eiro"
             android:textAlignment="viewEnd" />
 
         <EditText
             android:id="@+id/eiro_et"
             style="@style/Add_Item_Edit_Text_Style"
             android:layout_marginLeft="0dp"
+            android:inputType="number"
             android:layout_weight="1"
-            android:text="  eiro/gab"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/eiro_last_tv"
+            style="@style/Add_Item_Edit_Text_Style"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:text="centi/gab"
             android:textAlignment="viewEnd" />
     </LinearLayout>
 

@@ -1,6 +1,6 @@
 package com.example.romabakery.bekereja.views
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,76 +9,52 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.R
-import com.example.romabakery.bekereja.models.CakeWeight
-import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
-import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
-import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
+import com.example.romabakery.bekereja.models.items.CakeWeight
 
 class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
-    RecyclerView.Adapter<AllergenDataAdapter.AllergenDataViewHolder>() {
+    RecyclerView.Adapter<AddItemWeightAdapter.AddItemWeightViewHolder>() {
 
-    class AllergenDataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+    class AddItemWeightViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val weightTV: TextView
+        val amountTV: TextView
+        val costTV: TextView
         val deleteButton: Button
         val editButton: Button
 
         init {
-            textView = view.findViewById(R.id.allergen_title)
-            deleteButton = view.findViewById(R.id.delete_allergen_button)
-            editButton = view.findViewById(R.id.edit_allergen_button)
+            weightTV = view.findViewById(R.id.weight_tv)
+            amountTV = view.findViewById(R.id.max_tv)
+            costTV = view.findViewById(R.id.cost_tv)
+            deleteButton = view.findViewById(R.id.delete_weight_button)
+            editButton = view.findViewById(R.id.edit_weight_button)
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AllergenDataViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): AddItemWeightViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.allergen_list_row, viewGroup, false)
+            .inflate(R.layout.weight_row, viewGroup, false)
 
-        return AllergenDataViewHolder(view)
+        return AddItemWeightViewHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: AllergenDataViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet[position].title
+    override fun onBindViewHolder(viewHolder: AddItemWeightViewHolder, position: Int) {
+        viewHolder.weightTV.text =
+            "Vienas tortes svars: " + dataSet[position].weight.toString() + " g"
+        viewHolder.amountTV.text =
+            "Paredzētais daudzums: " + dataSet[position].maxADay.toString() + " tortes dienā"
+        var centi = dataSet[position].centi.toString()
+        if (dataSet[position].centi < 10) {
+            centi = "0" + dataSet[position].centi.toString()
+        }
+        viewHolder.costTV.text =
+            "Cena: " + dataSet[position].eiro.toString() + "." + centi + " eiro/gab"
         viewHolder.deleteButton.setOnClickListener {
-            Log.d(ContentValues.TAG, "Delete button pressed")
-            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
-                AllergenDataViewModel().getAllergenItems(dataSet[position].id) { itemList ->
-                    if (itemList?.isEmpty() == true) {
-                        Log.d(ContentValues.TAG, "CAN DELETE")
-                        AllergenDataViewModel().deleteOneAllergen(dataSet[position].id) { isDeleted ->
-                            if (isDeleted == true) {
-                                Log.d(ContentValues.TAG, "TRUE")
-                                Log.d(ContentValues.TAG, "Position: " + position.toString())
-                                dataSet.removeAt(position)
-                                notifyDataSetChanged()
-                                Log.d(ContentValues.TAG, "Count: " + itemCount.toString())
-                            } else {
-                                Log.d(ContentValues.TAG, "FALSE")
-                            }
-                        }
-                    } else if (itemList?.isNotEmpty() == true) {
-                        Log.d(ContentValues.TAG, "CANNOT DELETE")
-                    } else {
-                        Log.d(ContentValues.TAG, "NULL")
-                    }
-                }
-            }
+            Log.d(TAG, "Delete pressed")
         }
         viewHolder.editButton.setOnClickListener {
-            Log.d(ContentValues.TAG, "Edit button pressed")
-            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
-                val editedAllergen = AllergenDataClass(dataSet[position].id, "Labots1234", dataSet[position].madeBy, dataSet[position].editedOn, dataSet[position].editedBy)
-                AllergenDataViewModel().updateOneAllergen(editedAllergen) { isEdited ->
-                    if (isEdited == true) {
-                        Log.d(ContentValues.TAG, "isEdited TRUE")
-                        dataSet.set(position, editedAllergen)
-                        notifyDataSetChanged()
-                    } else {
-                        Log.d(ContentValues.TAG, "isEdited FALSE")
-                    }
-                }
-            }
-            notifyItemChanged(position)
+            Log.d(TAG, "Edit pressed")
         }
     }
+
     override fun getItemCount() = dataSet.size
 }

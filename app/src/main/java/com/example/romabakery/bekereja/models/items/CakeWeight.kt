@@ -1,4 +1,4 @@
-package com.example.romabakery.bekereja.models
+package com.example.romabakery.bekereja.models.items
 
 data class CakeWeight(
     val id: String = "",
