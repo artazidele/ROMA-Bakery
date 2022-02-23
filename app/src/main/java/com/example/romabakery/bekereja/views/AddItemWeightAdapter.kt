@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.romabakery.R
 import com.example.romabakery.bekereja.models.items.CakeWeight
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
     RecyclerView.Adapter<AddItemWeightAdapter.AddItemWeightViewHolder>() {
@@ -53,8 +57,41 @@ class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
         }
         viewHolder.editButton.setOnClickListener {
             Log.d(TAG, "Edit pressed")
+            editWeight(dataSet[position], viewHolder, position)
         }
     }
 
     override fun getItemCount() = dataSet.size
+
+    private fun editWeight(weight: CakeWeight, viewHolder: RecyclerView.ViewHolder, position: Int) {
+        val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.cake_weight_window, null)
+        val builder = AlertDialog.Builder(viewHolder.itemView.context)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<EditText>(R.id.weight_et).setText(weight.weight.toString())
+        dialogView.findViewById<EditText>(R.id.max_et).setText(weight.maxADay.toString())
+        dialogView.findViewById<EditText>(R.id.centi_et).setText(weight.eiro.toString())
+        dialogView.findViewById<EditText>(R.id.eiro_et).setText(weight.centi.toString())
+        dialogView.findViewById<Button>(R.id.add_cake_button).text = "Saglabāt izmaiņas"
+        dialogView.findViewById<Button>(R.id.add_cake_button).setOnClickListener {
+            val weightInt = dialogView.findViewById<EditText>(R.id.weight_et).text.toString().toInt()
+            val max = dialogView.findViewById<EditText>(R.id.max_et).text.toString().toInt()
+            val centi = dialogView.findViewById<EditText>(R.id.eiro_et).text.toString().toInt()
+            val eiro = dialogView.findViewById<EditText>(R.id.centi_et).text.toString().toInt()
+//            val uuid = UUID.randomUUID()
+            val weightId = weight.id //uuid.toString()
+            val cakeId = ""
+            val editedWeight = CakeWeight(weightId, cakeId, weightInt, eiro, centi, max)
+            AddItemActivity().removeWeight(weight)
+            AddItemActivity().addWeight(editedWeight)
+            dataSet.set(position, editedWeight)
+            notifyDataSetChanged()
+
+//            AddItemActivity().showCakeWeights()
+            alertDialog.dismiss()
+        }
+    }
 }
