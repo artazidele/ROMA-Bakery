@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/row_bg"
-    android:padding="0dp">
+    android:background="@drawable/dialog_border"
+    android:padding="8dp">
 
 
     <Button

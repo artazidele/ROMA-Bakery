@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/dialog_border"
+    android:padding="8dp">
+
+    <Button
+        android:id="@+id/close_button"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:drawableLeft="@drawable/ic_baseline_close_24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_title_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Nosaukums"
+        android:textAllCaps="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/close_button" />
+
+
+    <TextView
+        android:id="@+id/question_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Jautājums"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_title_tv" />
+
+    <Button
+        android:id="@+id/not_delete_button"
+        style="@style/Button_Style"
+        android:layout_width="wrap_content"
+        android:text="Tomēr saglabāt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_tv" />
+
+    <Button
+        android:id="@+id/delete_button"
+        style="@style/Button_Style"
+        android:layout_width="wrap_content"
+        android:text="Dzēst"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/not_delete_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

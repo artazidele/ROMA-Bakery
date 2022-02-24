@@ -76,7 +76,7 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
                     }
                 }
             }
-            notifyItemChanged(position)
+//            notifyItemChanged(position)
         }
     }
     override fun getItemCount() = dataSet.size

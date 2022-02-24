@@ -54,6 +54,7 @@ class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
             "Cena: " + dataSet[position].eiro.toString() + "." + centi + " eiro/gab"
         viewHolder.deleteButton.setOnClickListener {
             Log.d(TAG, "Delete pressed")
+            deleteWeight(dataSet[position], viewHolder, position)
         }
         viewHolder.editButton.setOnClickListener {
             Log.d(TAG, "Edit pressed")
@@ -81,16 +82,35 @@ class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
             val max = dialogView.findViewById<EditText>(R.id.max_et).text.toString().toInt()
             val centi = dialogView.findViewById<EditText>(R.id.eiro_et).text.toString().toInt()
             val eiro = dialogView.findViewById<EditText>(R.id.centi_et).text.toString().toInt()
-//            val uuid = UUID.randomUUID()
-            val weightId = weight.id //uuid.toString()
+            val weightId = weight.id
             val cakeId = ""
             val editedWeight = CakeWeight(weightId, cakeId, weightInt, eiro, centi, max)
             AddItemActivity().removeWeight(weight)
             AddItemActivity().addWeight(editedWeight)
             dataSet.set(position, editedWeight)
             notifyDataSetChanged()
-
-//            AddItemActivity().showCakeWeights()
+            alertDialog.dismiss()
+        }
+    }
+    private fun deleteWeight(weight: CakeWeight, viewHolder: RecyclerView.ViewHolder, position: Int) {
+        val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.delete_window, null)
+        val builder = AlertDialog.Builder(viewHolder.itemView.context)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<TextView>(R.id.item_title_tv).text = weight.weight.toString() + " grami"
+        dialogView.findViewById<TextView>(R.id.question_tv).text = "Vai izdzēst šo tortes svaru?"
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.not_delete_button).text = "Tomēr saglabāt tortes svaru"
+        dialogView.findViewById<Button>(R.id.not_delete_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.delete_button).text = "Dzēst tortes svaru"
+        dialogView.findViewById<Button>(R.id.delete_button).setOnClickListener {
+            dataSet.removeAt(position)
+            notifyDataSetChanged()
+            AddItemActivity().removeWeight(weight)
             alertDialog.dismiss()
         }
     }
