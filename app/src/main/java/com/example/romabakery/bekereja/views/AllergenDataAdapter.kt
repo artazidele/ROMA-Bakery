@@ -15,6 +15,10 @@ import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
 import com.example.romabakery.bekereja.models.items.CakeWeight
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
     RecyclerView.Adapter<AllergenDataAdapter.AllergenDataViewHolder>() {
@@ -66,20 +70,56 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
             }
         }
         viewHolder.editButton.setOnClickListener {
-            Log.d(ContentValues.TAG, "Edit button pressed")
-            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
-                val editedAllergen = AllergenDataClass(dataSet[position].id, "Labots1234", dataSet[position].madeBy, dataSet[position].editedOn, dataSet[position].editedBy)
-                AllergenDataViewModel().updateOneAllergen(editedAllergen) { isEdited ->
-                    if (isEdited == true) {
-                        Log.d(ContentValues.TAG, "isEdited TRUE")
-                        dataSet.set(position, editedAllergen)
-                        notifyDataSetChanged()
-                    } else {
-                        Log.d(ContentValues.TAG, "isEdited FALSE")
-                    }
-                }
-            }
-//            notifyItemChanged(position)
+            editAllergen(dataSet[position], viewHolder, position)
+            Log.d(ContentValues.TAG, dataSet.size.toString())
+
+
+//            val allergen = dataSet[position]
+//            val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.add_allergen_window, null)
+//            val builder = AlertDialog.Builder(viewHolder.itemView.context)
+//                .setView(dialogView)
+//            val alertDialog = builder.show()
+//            dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+//                alertDialog.dismiss()
+//            }
+//            dialogView.findViewById<EditText>(R.id.allergen_title_et).setText(allergen.title)
+//            dialogView.findViewById<Button>(R.id.add_allergen_button).setOnClickListener {
+//                val title = dialogView.findViewById<EditText>(R.id.allergen_title_et).text.toString()
+//                val editBy = "ConfectionerSecondId" // Get current user id or etc
+//                val editedBy = allergen.editedBy
+//                val editedOn = allergen.editedOn
+//                val dateAndTimeNow = LocalDateTime.now()
+//                val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//                val dateAndTimeToSave = dateAndTimeNow.format(dateFormat).toString()
+//                editedBy.add(editBy)
+//                editedOn.add(dateAndTimeToSave)
+//                val editedAllergen = AllergenDataClass(allergen.id, title, allergen.madeBy, editedBy, editedOn)
+//                if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
+//                    AllergenDataViewModel().updateOneAllergen(editedAllergen) { edited ->
+//                        if (edited == true) {
+//                            dataSet.set(position, editedAllergen)
+////                        notifyDataSetChanged()
+//                            notifyItemChanged(position)
+//                            alertDialog.dismiss()
+//                        } else {
+//
+//                        }
+//                    }
+//                }
+//            }
+//            Log.d(ContentValues.TAG, "Edit button pressed")
+//            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
+//                val editedAllergen = AllergenDataClass(dataSet[position].id, "Labots1234", dataSet[position].madeBy, dataSet[position].editedOn, dataSet[position].editedBy)
+//                AllergenDataViewModel().updateOneAllergen(editedAllergen) { isEdited ->
+//                    if (isEdited == true) {
+//                        Log.d(ContentValues.TAG, "isEdited TRUE")
+//                        dataSet.set(position, editedAllergen)
+//                        notifyDataSetChanged()
+//                    } else {
+//                        Log.d(ContentValues.TAG, "isEdited FALSE")
+//                    }
+//                }
+//            }
         }
     }
     override fun getItemCount() = dataSet.size
@@ -87,31 +127,37 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
 
     }
     private fun editAllergen(allergen: AllergenDataClass, viewHolder: RecyclerView.ViewHolder, position: Int) {
-//        val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.cake_weight_window, null)
-//        val builder = AlertDialog.Builder(viewHolder.itemView.context)
-//            .setView(dialogView)
-//        val alertDialog = builder.show()
-//        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
-//            alertDialog.dismiss()
-//        }
-//        dialogView.findViewById<EditText>(R.id.weight_et).setText(weight.weight.toString())
-//        dialogView.findViewById<EditText>(R.id.max_et).setText(weight.maxADay.toString())
-//        dialogView.findViewById<EditText>(R.id.centi_et).setText(weight.eiro.toString())
-//        dialogView.findViewById<EditText>(R.id.eiro_et).setText(weight.centi.toString())
-//        dialogView.findViewById<Button>(R.id.add_cake_button).text = "Saglabāt izmaiņas"
-//        dialogView.findViewById<Button>(R.id.add_cake_button).setOnClickListener {
-//            val weightInt = dialogView.findViewById<EditText>(R.id.weight_et).text.toString().toInt()
-//            val max = dialogView.findViewById<EditText>(R.id.max_et).text.toString().toInt()
-//            val centi = dialogView.findViewById<EditText>(R.id.eiro_et).text.toString().toInt()
-//            val eiro = dialogView.findViewById<EditText>(R.id.centi_et).text.toString().toInt()
-//            val weightId = weight.id
-//            val cakeId = ""
-//            val editedWeight = CakeWeight(weightId, cakeId, weightInt, eiro, centi, max)
-//            AddItemActivity().removeWeight(weight)
-//            AddItemActivity().addWeight(editedWeight)
-//            dataSet.set(position, editedWeight)
-//            notifyDataSetChanged()
-//            alertDialog.dismiss()
-//        }
+        val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.add_allergen_window, null)
+        val builder = AlertDialog.Builder(viewHolder.itemView.context)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<EditText>(R.id.allergen_title_et).setText(allergen.title)
+        dialogView.findViewById<Button>(R.id.add_allergen_button).setOnClickListener {
+            val title = dialogView.findViewById<EditText>(R.id.allergen_title_et).text.toString()
+            val editBy = "ConfectionerSecondId" // Get current user id or etc
+            val editedBy = allergen.editedBy
+            val editedOn = allergen.editedOn
+            val dateAndTimeNow = LocalDateTime.now()
+            val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val dateAndTimeToSave = dateAndTimeNow.format(dateFormat).toString()
+            editedBy.add(editBy)
+            editedOn.add(dateAndTimeToSave)
+            val editedAllergen = AllergenDataClass(allergen.id, title, allergen.madeBy, editedBy, editedOn)
+            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
+                AllergenDataViewModel().updateOneAllergen(editedAllergen) { edited ->
+                    if (edited == true) {
+                        dataSet.set(position, editedAllergen)
+//                        notifyDataSetChanged()
+                        notifyItemChanged(position)
+                        alertDialog.dismiss()
+                    } else {
+
+                    }
+                }
+            }
+        }
     }
 }
