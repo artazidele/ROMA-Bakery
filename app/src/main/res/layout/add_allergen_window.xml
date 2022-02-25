@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/dialog_border"
+    android:padding="8dp">
+
+
+    <Button
+        android:id="@+id/close_button"
+        style="@style/Button_Style"
+        android:layout_width="48dp"
+        android:drawableLeft="@drawable/ic_baseline_close_24"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/allergen_title_tv"
+        style="@style/Add_Item_Text_View_Style"
+        android:text="Alergēna nosaukums: "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/close_button" />
+
+    <EditText
+        android:id="@+id/allergen_title_et"
+        style="@style/Add_Item_Edit_Text_Style"
+        app:layout_constraintTop_toBottomOf="@id/allergen_title_tv"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/add_allergen_button"
+        style="@style/Button_Style"
+        android:layout_width="wrap_content"
+        android:text="Pievienot alergēnu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/allergen_title_et" />
+</androidx.constraintlayout.widget.ConstraintLayout>

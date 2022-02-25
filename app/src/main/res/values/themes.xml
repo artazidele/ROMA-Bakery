@@ -1,41 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-<!--    <style name="Theme.ROMABakery" parent="Theme.MaterialComponents.DayNight.DarkActionBar">-->
-
     <style name="Theme.ROMABakery" parent="Theme.AppCompat.DayNight.DarkActionBar">
-
         <item name="colorPrimary">@color/pink_900_dark</item>
         <item name="colorPrimaryVariant">@color/pink_900</item>
         <item name="colorOnPrimary">@color/white</item>
-
-<!--        <item name="actionBarItemBackground">@color/yellow_700</item>-->
-<!--        <item name="android:background">@color/red_50</item>-->
-
-<!--        <item name="colorSecondary">@color/brown_800_dark</item>-->
-<!--        <item name="colorOnSecondary">@color/white</item>-->
-
-<!--                <item name="colorSecondary">@color/teal_200</item>-->
-<!--                <item name="colorSecondaryVariant">@color/teal_700</item>-->
-<!--                <item name="colorOnSecondary">@color/black</item>-->
-<!--        <item name="colorOnSecondary">@color/white</item>-->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
-
-
-
-
         <item name="colorAccent">@color/pink_900_dark</item>
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
-<!--        <item name="colorPrimary">@color/purple_500</item>-->
-<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
-<!--        <item name="colorOnPrimary">@color/white</item>-->
-<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
-<!--        <item name="colorSecondary">@color/teal_200</item>-->
-<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
-<!--        <item name="colorOnSecondary">@color/black</item>-->
-<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-        <!-- Customize your theme here. -->
     </style>
     <style name="Button_Style" parent="Theme.ROMABakery">
         <item name="android:textAllCaps">true</item>

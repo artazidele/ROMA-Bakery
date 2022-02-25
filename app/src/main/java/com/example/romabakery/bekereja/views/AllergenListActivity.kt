@@ -4,18 +4,26 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.R
 import com.example.romabakery.bekereja.Navigation
 import com.example.romabakery.bekereja.models.allergens.AllergenDataClass
+import com.example.romabakery.bekereja.models.items.CakeWeight
 import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
 import com.example.romabakery.databinding.ActivityAllergenListBinding
 import com.example.romabakery.viewmodel.NetworkViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AllergenListActivity : AppCompatActivity() {
     private val viewModel: AllergenDataViewModel by viewModels()
@@ -65,7 +73,38 @@ class AllergenListActivity : AppCompatActivity() {
     }
 
     public fun addNewAllergen() {
-        Log.d(ContentValues.TAG, "ADD NEW ALLERGEN PRESSED")
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.add_allergen_window, null)
+        val builder = AlertDialog.Builder(this)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.add_allergen_button).setOnClickListener {
+            val title = dialogView.findViewById<EditText>(R.id.allergen_title_et).text.toString()
+            val madeBy = "ConfectionerId" // Get current user id or etc
+            val editedBy: ArrayList<String> = ArrayList()
+            val editedOn: ArrayList<String> = ArrayList()
+            val dateAndTimeNow = LocalDateTime.now()
+            val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val dateAndTimeToSave = dateAndTimeNow.format(dateFormat).toString()
+            editedBy.add(madeBy)
+            editedOn.add(dateAndTimeToSave)
+            val uuid = UUID.randomUUID()
+            val id = uuid.toString()
+            val newAllergen = AllergenDataClass(id, title, madeBy, editedBy, editedOn)
+            if (NetworkDataViewModel().checkConnection(this) == true) {
+                viewModel.addNewAllergen(newAllergen) { added ->
+                    if (added == true) {
+                        refreshAllergenList()
+                        alertDialog.dismiss()
+                    } else {
+
+                    }
+                }
+            }
+        }
+//        Log.d(ContentValues.TAG, "ADD NEW ALLERGEN PRESSED")
 //        val allergen = AllergenDataClass(
 //            "12121212",
 //            "1212 alergēns Tikko",
@@ -83,17 +122,4 @@ class AllergenListActivity : AppCompatActivity() {
 //            }
 //        }
     }
-
-//    public fun getOneAllergenExample(id: String) {
-//        Log.d(ContentValues.TAG, "GET ALLERGEN PRESSED")
-//        if (NetworkViewModel().checkConnection(this) == true) {
-//            viewModel.getOneAllergen(id) { allergen ->
-//                if (allergen?.id != null) {
-//                    Log.d(ContentValues.TAG, allergen.title)
-//                } else {
-//                    Log.d(ContentValues.TAG, "ERROR getting one allergen")
-//                }
-//            }
-//        }
-//    }
 }

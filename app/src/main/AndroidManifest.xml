@@ -21,22 +21,21 @@
         <activity
             android:name=".bekereja.views.ItemListActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".bekereja.views.AllergenListActivity"
             android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-<!--             <intent-filter>-->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
 
-
-<!--                 <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".mvvm.MyActivity"

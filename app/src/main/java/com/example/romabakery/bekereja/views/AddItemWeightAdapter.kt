@@ -53,11 +53,11 @@ class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
         viewHolder.costTV.text =
             "Cena: " + dataSet[position].eiro.toString() + "." + centi + " eiro/gab"
         viewHolder.deleteButton.setOnClickListener {
-            Log.d(TAG, "Delete pressed")
+//            Log.d(TAG, "Delete pressed")
             deleteWeight(dataSet[position], viewHolder, position)
         }
         viewHolder.editButton.setOnClickListener {
-            Log.d(TAG, "Edit pressed")
+//            Log.d(TAG, "Edit pressed")
             editWeight(dataSet[position], viewHolder, position)
         }
     }
