@@ -86,7 +86,8 @@ class AddItemWeightAdapter(private val dataSet: ArrayList<CakeWeight>) :
             val cakeId = ""
             val editedWeight = CakeWeight(weightId, cakeId, weightInt, eiro, centi, max)
             AddItemActivity().removeWeight(weight)
-            AddItemActivity().addWeight(editedWeight)
+            AddItemActivity().addWeight(weight)
+//            AddItemActivity().editWeight(position, editedWeight)
             dataSet.set(position, editedWeight)
             notifyDataSetChanged()
             alertDialog.dismiss()

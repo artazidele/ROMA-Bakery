@@ -98,6 +98,10 @@ class AddItemActivity : AppCompatActivity() {
         cake_weights.add(weight)
     }
 
+    public fun editWeight(position: Int, editedWeight: CakeWeight) {
+        cake_weights.set(position, editedWeight)
+    }
+
     public fun removeWeight(weight: CakeWeight) {
         cake_weights.remove(weight)
     }

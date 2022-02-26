@@ -43,7 +43,7 @@ class AllergenListActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshAllergenList() {
+    public fun refreshAllergenList() {
         viewModel.getAllAllergens() {
             if (it?.isNotEmpty() == true) {
                 binding.allAllergenRecyclerView.adapter = AllergenDataAdapter(it!!)
