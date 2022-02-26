@@ -46,6 +46,29 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
         viewHolder.textView.text = dataSet[position].title
         viewHolder.deleteButton.setOnClickListener {
             Log.d(ContentValues.TAG, "Delete button pressed")
+            deleteAllergen(dataSet[position], viewHolder, position)
+        }
+        viewHolder.editButton.setOnClickListener {
+            editAllergen(dataSet[position], viewHolder, position)
+        }
+    }
+    override fun getItemCount() = dataSet.size
+    private fun deleteAllergen(allergen: AllergenDataClass, viewHolder: RecyclerView.ViewHolder, position: Int) {
+        val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.delete_window, null)
+        val builder = AlertDialog.Builder(viewHolder.itemView.context)
+            .setView(dialogView)
+        val alertDialog = builder.show()
+        dialogView.findViewById<TextView>(R.id.item_title_tv).text = allergen.title
+        dialogView.findViewById<TextView>(R.id.question_tv).text = "Vai izdzēst šo alergēnu?"
+        dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.not_delete_button).text = "Tomēr saglabāt alergēnu"
+        dialogView.findViewById<Button>(R.id.not_delete_button).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.delete_button).text = "Dzēst alergēnu"
+        dialogView.findViewById<Button>(R.id.delete_button).setOnClickListener {
             if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
                 AllergenDataViewModel().getAllergenItems(dataSet[position].id) { itemList ->
                     if (itemList?.isEmpty() == true) {
@@ -56,6 +79,7 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
                                 Log.d(ContentValues.TAG, "Position: " + position.toString())
                                 dataSet.removeAt(position)
                                 notifyDataSetChanged()
+                                alertDialog.dismiss()
                                 Log.d(ContentValues.TAG, "Count: " + itemCount.toString())
                             } else {
                                 Log.d(ContentValues.TAG, "FALSE")
@@ -69,62 +93,6 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
                 }
             }
         }
-        viewHolder.editButton.setOnClickListener {
-            editAllergen(dataSet[position], viewHolder, position)
-            Log.d(ContentValues.TAG, dataSet.size.toString())
-
-
-//            val allergen = dataSet[position]
-//            val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.add_allergen_window, null)
-//            val builder = AlertDialog.Builder(viewHolder.itemView.context)
-//                .setView(dialogView)
-//            val alertDialog = builder.show()
-//            dialogView.findViewById<Button>(R.id.close_button).setOnClickListener {
-//                alertDialog.dismiss()
-//            }
-//            dialogView.findViewById<EditText>(R.id.allergen_title_et).setText(allergen.title)
-//            dialogView.findViewById<Button>(R.id.add_allergen_button).setOnClickListener {
-//                val title = dialogView.findViewById<EditText>(R.id.allergen_title_et).text.toString()
-//                val editBy = "ConfectionerSecondId" // Get current user id or etc
-//                val editedBy = allergen.editedBy
-//                val editedOn = allergen.editedOn
-//                val dateAndTimeNow = LocalDateTime.now()
-//                val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//                val dateAndTimeToSave = dateAndTimeNow.format(dateFormat).toString()
-//                editedBy.add(editBy)
-//                editedOn.add(dateAndTimeToSave)
-//                val editedAllergen = AllergenDataClass(allergen.id, title, allergen.madeBy, editedBy, editedOn)
-//                if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
-//                    AllergenDataViewModel().updateOneAllergen(editedAllergen) { edited ->
-//                        if (edited == true) {
-//                            dataSet.set(position, editedAllergen)
-////                        notifyDataSetChanged()
-//                            notifyItemChanged(position)
-//                            alertDialog.dismiss()
-//                        } else {
-//
-//                        }
-//                    }
-//                }
-//            }
-//            Log.d(ContentValues.TAG, "Edit button pressed")
-//            if (NetworkDataViewModel().checkConnection(viewHolder.itemView.context) == true) {
-//                val editedAllergen = AllergenDataClass(dataSet[position].id, "Labots1234", dataSet[position].madeBy, dataSet[position].editedOn, dataSet[position].editedBy)
-//                AllergenDataViewModel().updateOneAllergen(editedAllergen) { isEdited ->
-//                    if (isEdited == true) {
-//                        Log.d(ContentValues.TAG, "isEdited TRUE")
-//                        dataSet.set(position, editedAllergen)
-//                        notifyDataSetChanged()
-//                    } else {
-//                        Log.d(ContentValues.TAG, "isEdited FALSE")
-//                    }
-//                }
-//            }
-        }
-    }
-    override fun getItemCount() = dataSet.size
-    private fun deleteAllergen() {
-
     }
     private fun editAllergen(allergen: AllergenDataClass, viewHolder: RecyclerView.ViewHolder, position: Int) {
         val dialogView = LayoutInflater.from(viewHolder.itemView.context).inflate(R.layout.add_allergen_window, null)
