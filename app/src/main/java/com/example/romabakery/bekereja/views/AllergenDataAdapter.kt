@@ -135,6 +135,7 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
             alertDialog.dismiss()
         }
         dialogView.findViewById<EditText>(R.id.allergen_title_et).setText(allergen.title)
+        dialogView.findViewById<Button>(R.id.add_allergen_button).text = "Saglabāt izmaiņas"
         dialogView.findViewById<Button>(R.id.add_allergen_button).setOnClickListener {
             val title = dialogView.findViewById<EditText>(R.id.allergen_title_et).text.toString()
             val editBy = "ConfectionerSecondId" // Get current user id or etc
