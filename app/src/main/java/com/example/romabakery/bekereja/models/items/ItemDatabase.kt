@@ -9,29 +9,29 @@ import com.google.firebase.firestore.QuerySnapshot
 class ItemDatabase {
     val db = FirebaseFirestore.getInstance()
 
-    fun getItems(): Task<QuerySnapshot> {
+    suspend fun getItems(): Task<QuerySnapshot> {
         return db.collection("Item") //return db.collection("Item") //return db.collection("ConfectioneryItem")
             .orderBy("title")
             .get()
     }
 
-    fun deleteItem(id: String): Task<Void> {
+    suspend fun deleteItem(id: String): Task<Void> {
         return db.collection("Item").document(id)
             .delete()
     }
 
-    fun getItem(id: String): Task<DocumentSnapshot> {
+    suspend fun getItem(id: String): Task<DocumentSnapshot> {
         return db.collection("Item")
             .document(id)
             .get()
     }
 
-    fun addItem(item: ItemDataClass): Task<Void> {
+    suspend fun addItem(item: ItemDataClass): Task<Void> {
         return db.collection("Item").document(item.id)
             .set(item)
     }
 
-    fun updateItem(item: ItemDataClass): Task<Void> {
+    suspend fun updateItem(item: ItemDataClass): Task<Void> {
         return db.collection("Item").document(item.id)
             .update(
                 mapOf(
