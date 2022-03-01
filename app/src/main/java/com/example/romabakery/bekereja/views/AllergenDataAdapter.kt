@@ -119,7 +119,6 @@ class AllergenDataAdapter(private val dataSet: ArrayList<AllergenDataClass>) :
                 AllergenDataViewModel().updateOneAllergen(editedAllergen) { edited ->
                     if (edited == true) {
                         dataSet.set(position, editedAllergen)
-//                        notifyDataSetChanged()
                         notifyItemChanged(position)
                         alertDialog.dismiss()
                     } else {
