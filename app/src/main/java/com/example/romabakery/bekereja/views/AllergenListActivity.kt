@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.romabakery.R
 import com.example.romabakery.bekereja.Navigation
@@ -21,6 +22,7 @@ import com.example.romabakery.bekereja.viewmodels.AllergenDataViewModel
 import com.example.romabakery.bekereja.viewmodels.NetworkDataViewModel
 import com.example.romabakery.databinding.ActivityAllergenListBinding
 import com.example.romabakery.viewmodel.NetworkViewModel
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
